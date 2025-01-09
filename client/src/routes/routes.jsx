@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import { Home, Chooserole, Signin, Signup } from "../pages/index";
+import Dashboard from "@/pages/police/PoliceDashboard";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
     ],
+  },
+  //police routes
+  {
+    path: "/police/dashboard",
+    element: <Dashboard />,
   },
 ]);
 
