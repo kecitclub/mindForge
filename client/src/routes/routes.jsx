@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { Home, Chooserole } from "../pages/index";
+import { Home, Chooserole, Signin, Signup } from "../pages/index";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +14,14 @@ const router = createBrowserRouter([
       {
         path: "/chooserole",
         element: <Chooserole />,
+      },
+      {
+        path: "/signin",
+        element: <Signin />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
       },
     ],
   },
