@@ -6,20 +6,20 @@ import {
   Users,
   BarChart,
   HelpCircle,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { useState } from 'react';
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useState } from "react";
 
-const Sidebar = () => {
+export default function Sidebar() {
   const [expanded, setExpanded] = useState(true);
 
   const navItems = [
-    { icon: Home, label: 'Dashboard', href: '#' },
-    { icon: Users, label: 'Users', href: '#' },
-    { icon: BarChart, label: 'Analytics', href: '#' },
-    { icon: Settings, label: 'Settings', href: '#' },
-    { icon: HelpCircle, label: 'Help', href: '#' },
+    { icon: Home, label: "Dashboard", href: "#" },
+    { icon: Users, label: "Users", href: "#" },
+    { icon: BarChart, label: "Analytics", href: "#" },
+    { icon: Settings, label: "Settings", href: "#" },
+    { icon: HelpCircle, label: "Help", href: "#" },
   ];
 
   return (
@@ -32,7 +32,7 @@ const Sidebar = () => {
         transition-all
         duration-300
         relative
-        ${expanded ? 'w-60' : 'w-16'}
+        ${expanded ? "w-60" : "w-16"}
       `}
     >
       {/* Toggle Button */}
@@ -73,13 +73,11 @@ const Sidebar = () => {
               hover:bg-accent
               hover:text-foreground
               group
-              ${expanded ? 'justify-start' : 'justify-center'}
+              ${expanded ? "justify-start" : "justify-center"}
             `}
           >
             <item.icon className="h-5 w-5" />
-            {expanded && (
-              <span className="ml-3">{item.label}</span>
-            )}
+            {expanded && <span className="ml-3">{item.label}</span>}
             {!expanded && (
               <span className="absolute left-full rounded-md px-2 py-1 ml-6 bg-foreground text-background text-sm invisible opacity-0 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
                 {item.label}
@@ -91,7 +89,11 @@ const Sidebar = () => {
 
       {/* User Profile Section */}
       <div className="border-t p-4">
-        <div className={`flex ${expanded ? 'items-center' : 'justify-center'} gap-3`}>
+        <div
+          className={`flex ${
+            expanded ? "items-center" : "justify-center"
+          } gap-3`}
+        >
           <Avatar className="h-8 w-8">
             <AvatarImage src="/api/placeholder/32/32" alt="User avatar" />
             <AvatarFallback>JD</AvatarFallback>
@@ -99,13 +101,13 @@ const Sidebar = () => {
           {expanded && (
             <div className="flex flex-col">
               <span className="text-sm font-medium">John Doe</span>
-              <span className="text-xs text-foreground/60">john@example.com</span>
+              <span className="text-xs text-foreground/60">
+                john@example.com
+              </span>
             </div>
           )}
         </div>
       </div>
     </aside>
   );
-};
-
-export default Sidebar;
+}

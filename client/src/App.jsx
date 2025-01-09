@@ -5,7 +5,6 @@ import Sidebar from "./components/global/Sidebar";
 function App() {
   return (
     <>
-    <Sidebar />
       <Header />
       <main>
         <Outlet />
