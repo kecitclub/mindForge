@@ -1,16 +1,57 @@
-import { Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
-import sideLogo from "../assets/sidelogo.png";
-
+import { Heart } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Link, useNavigate } from "react-router-dom"
+import sideLogo from "../assets/sidelogo.png"
+import { useState } from "react"
+import axios from "axios"
 
 export function Signup() {
+  const navigate = useNavigate()
+
+  const [formInputs, setFormInputs] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    role: "",
+  })
+
+  const changeEventHandler = e => {
+    setFormInputs({ ...formInputs, [e.target.name]: e.target.value })
+  }
+
+  const formSubmitHandler = async e => {
+    e.preventDefault()
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/register`,
+        formInputs,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
+
+      if (response.status === 201) {
+        navigate("/")
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-4">
+    <form
+      onSubmit={formSubmitHandler}
+      className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-4"
+    >
       <Card className="w-full max-w-lg shadow-lg">
         <CardHeader className="space-y-3 text-center">
           <div className="flex justify-center">
@@ -25,19 +66,28 @@ export function Signup() {
           </p>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="firstName">First Name</Label>
-              <Input id="firstName" placeholder="First name" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastName">Last Name</Label>
-              <Input id="lastName" placeholder="Last name" />
-            </div>
+          <div className="space-y-2">
+            <Label htmlFor="fullName">Full Name</Label>
+            <Input
+              id="fullName"
+              placeholder="Enter your name"
+              type="text"
+              value={formInputs.fullName}
+              name="fullName"
+              onChange={changeEventHandler}
+            />
           </div>
+
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="Enter your email" />
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              value={formInputs.email}
+              name="email"
+              onChange={changeEventHandler}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
@@ -45,30 +95,36 @@ export function Signup() {
               id="password"
               type="password"
               placeholder="Create a password"
+              value={formInputs.password}
+              name="password"
+              onChange={changeEventHandler}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Label htmlFor="phoneNumber">Phone Number</Label>
             <Input
-              id="confirmPassword"
-              type="password"
-              placeholder="Confirm your password"
+              id="phoneNumber"
+              type="number"
+              placeholder="Enter your phone number"
+              value={formInputs.phoneNumber}
+              name="phoneNumber"
+              onChange={changeEventHandler}
             />
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox id="terms" />
-            <label htmlFor="terms" className="text-sm text-gray-600">
-              I agree to the{" "}
-              <Link href="#" className="text-blue-600 hover:underline">
-                Terms of Service
-              </Link>{" "}
-              and{" "}
-              <Link href="#" className="text-blue-600 hover:underline">
-                Privacy Policy
-              </Link>
+            <label
+              htmlFor="terms"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              I accept all the terms and conditions
             </label>
           </div>
-          <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
+
+          <Button
+            type="submit"
+            className="w-full bg-red-600 hover:bg-red-700 text-white"
+          >
             Create Account
           </Button>
           <div className="text-center text-sm">
@@ -79,6 +135,6 @@ export function Signup() {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </form>
+  )
 }
