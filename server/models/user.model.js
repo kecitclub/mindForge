@@ -23,11 +23,11 @@ const userSchema = new Schema(
             required: [true, "Password is required"],
             select: false,
         },
-        role: {
-            type: String,
-            enum: ['Ambulance', 'Hospital', "FireBrigade", "Police"],
-            required: true
-        },
+        // role: {
+        //     type: String,
+        //     enum: ['Ambulance', 'Hospital', "FireBrigade", "Police"],
+        //     required: true
+        // },
         phoneNumber:
         {
             type: Number,
@@ -42,6 +42,7 @@ userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
 
     this.password = await bcrypt.hash(this.password, 10);
+
     next();
 });
 

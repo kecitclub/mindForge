@@ -1,5 +1,5 @@
 import { Ambulance } from '../models/ambulance.model.js';
-import { Patient } from '../models/patient.model.js';
+import { User } from '../models/user.model.js';
 import { Hospital } from '../models/hospital.model.js';
 import { catchAsync } from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
@@ -18,9 +18,9 @@ export const acceptRequest = catchAsync(async (req, res) => {
             throw new AppError('Ambulance not found.', 404)
         }
 
-        const patient = await Patient.findById(patientId);
+        const patient = await User.findById(patientId);
         if (!patient) {
-            throw new AppError('Patient not found.', 404)
+            throw new AppError('User not found.', 404)
         }
 
         ambulance.patient = patientId;

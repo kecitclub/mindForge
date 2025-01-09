@@ -1,8 +1,8 @@
 import { Ambulance } from '../models/ambulance.model.js';
-import { Patient } from '../models/patient.model.js';
 import { Hospital } from '../models/hospital.model.js';
 import { catchAsync } from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
+import { User } from '../models/user.model.js';
 
 export const ambulanceReachedHospital = catchAsync(async (req, res) => {
     const hospitalId = req.user._id
@@ -18,9 +18,9 @@ export const ambulanceReachedHospital = catchAsync(async (req, res) => {
             throw new AppError("Hospital not found", 404)
         }
 
-        const patient = await Patient.findById(patientId);
+        const patient = await User.findById(patientId);
         if (!patient) {
-            throw new AppError("Patient not found", 404)
+            throw new AppError("User not found", 404)
         }
 
         const ambulance = await Ambulance.findById(ambulanceId);
@@ -38,7 +38,7 @@ export const ambulanceReachedHospital = catchAsync(async (req, res) => {
         // Respond with success message
         return res.status(200).json({
             status: "success",
-            message: 'Ambulance successfully reached the Hospital with the Patient.',
+            message: 'Ambulance successfully reached the Hospital with the User.',
             patient,
             hospital
         });

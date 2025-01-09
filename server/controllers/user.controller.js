@@ -1,5 +1,4 @@
 import { User } from "../models/user.model.js"
-import { Patient } from "../models/patient.model.js"
 import { catchAsync } from "../utils/catchAsync.js"
 import AppError from "../utils/appError.js"
 import { Hospital } from "../models/hospital.model.js"
@@ -14,49 +13,55 @@ const register = catchAsync(async (req, res, next) => {
         throw new AppError("The user with this email already exists", 400)
     }
 
-    let newUser
+    const newUser = await User.create({
+        fullName,
+        email,
+        password,
+        // role,
+        phoneNumber,
+    });
 
-    if (role === 'Patient') {
-        newUser = await Patient.create({
-            fullName,
-            email,
-            password,
-            role,
-            phoneNumber,
-            dob
-        });
-    } else if (role === 'Ambulance') {
-        newUser = await Ambulance.create({
-            fullName,
-            email,
-            password,
-            role,
-            phoneNumber,
-            vehicleNumber
-        });
-    } else if (role === "Hospital") {
-        newUser = await Hospital.create({
-            fullName,
-            email,
-            password,
-            role,
-            phoneNumber,
-            hospitalAddress,
-            hospitalLocation: {
-                latitude,
-                longitude
-            },
-            specialization
-        });
-    } else {
-        throw new AppError("Inappropriate role!", 404)
-    }
+    // if (role === 'FireBrigade') {
+    //     newUser = await User.create({
+    //         fullName,
+    //         email,
+    //         password,
+    //         role,
+    //         phoneNumber,
+    //         dob
+    //     });
+    // } else if (role === 'Ambulance') {
+    //     newUser = await Ambulance.create({
+    //         fullName,
+    //         email,
+    //         password,
+    //         role,
+    //         phoneNumber,
+    //         vehicleNumber
+    //     });
+    // } else if (role === "Hospital") {
+    //     newUser = await Hospital.create({
+    //         fullName,
+    //         email,
+    //         password,
+    //         role,
+    //         phoneNumber,
+    //         hospitalAddress,
+    //         hospitalLocation: {
+    //             latitude,
+    //             longitude
+    //         },
+    //         specialization
+    //     });
+    // } else {
+    //     throw new AppError("Inappropriate role!", 404)
+    // }
 
 
     res.status(201).json({
         status: "success",
         message: "Account created successfully",
-        data: null
+        data: newUser
     })
 })
 
@@ -112,7 +117,7 @@ const logout = catchAsync(async (req, res, next) => {
         })
 })
 
-export const ambulanceRequest = catchAsync(async (req, res, next) => {
+const ambulanceRequest = catchAsync(async (req, res, next) => {
     const patientId = req.user._id
     const { latitude, longitude } = req.body;
 
@@ -121,9 +126,9 @@ export const ambulanceRequest = catchAsync(async (req, res, next) => {
     }
 
     try {
-        const patient = await Patient.findById(patientId);
+        const patient = await User.findById(patientId);
         if (!patient) {
-            throw new AppError('Patient not found!', 404);
+            throw new AppError('User not found!', 404);
         }
 
         patient.location = { latitude, longitude };

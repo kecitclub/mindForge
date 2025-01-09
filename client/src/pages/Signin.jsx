@@ -1,15 +1,54 @@
-import { Heart, Shield } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
-import sideLogo from "../assets/sidelogo.png";
+import { Heart } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Link, useNavigate } from "react-router-dom"
+import sideLogo from "../assets/sidelogo.png"
+import { useState } from "react"
+import axios from "axios"
 
 export function Signin() {
+  const navigate = useNavigate()
+
+  const [formInputs, setFormInputs] = useState({
+    email: "",
+    password: "",
+  })
+
+  const changeEventHandler = e => {
+    setFormInputs({ ...formInputs, [e.target.name]: e.target.value })
+  }
+
+  const formSubmitHandler = async e => {
+    e.preventDefault()
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`,
+        formInputs,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
+
+      if (response.status === 200) {
+        navigate("/")
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white">
+    <form
+      onSubmit={formSubmitHandler}
+      className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white"
+    >
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-3">
           <div className="flex items-center justify-center gap-2">
@@ -31,7 +70,9 @@ export function Signin() {
                 id="email"
                 type="email"
                 placeholder="Enter your email"
-                className="h-12"
+                value={formInputs.email}
+                name="email"
+                onChange={changeEventHandler}
               />
             </div>
             <div className="space-y-2">
@@ -39,8 +80,10 @@ export function Signin() {
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
-                className="h-12"
+                placeholder="Create a password"
+                value={formInputs.password}
+                name="password"
+                onChange={changeEventHandler}
               />
             </div>
           </div>
@@ -60,18 +103,21 @@ export function Signin() {
             </Link>
           </div>
 
-          <Button className="w-full h-12 bg-red-600 hover:bg-red-700 text-white">
+          <Button
+            type="submit"
+            className="w-full h-12 bg-red-600 hover:bg-red-700 text-white"
+          >
             Sign In
           </Button>
 
           <div className="text-center text-sm">
-            Don&apos;t have an account?{" "}
+            Don&apos;t have an account?
             <Link to="/signup" className="text-blue-600 hover:text-blue-700">
               Sign up
             </Link>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </form>
+  )
 }

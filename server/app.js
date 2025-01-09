@@ -1,8 +1,7 @@
 import express from "express";
-// import userRouter from "./routes/user.routes.js";
-// import patientRouter from "./routes/patient.routes.js";
-// import hospitalRouter from "./routes/hospital.routes.js";
-// import ambulanceRouter from "./routes/ambulance.routes.js";
+import userRouter from "./routes/user.routes.js";
+import hospitalRouter from "./routes/hospital.routes.js";
+import ambulanceRouter from "./routes/ambulance.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { Server as SocketServer } from 'socket.io'; // import the server part of socket.io
