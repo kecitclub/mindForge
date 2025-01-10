@@ -1,9 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { Home, Chooserole, Signin, Signup, PoliceProfile } from "../pages/index";
-import Dashboard from "@/pages/police/PoliceDashboard";
+import {
+  Home,
+  Chooserole,
+  Signin,
+  Signup,
+  PoliceProfile,
+} from "../pages/index";
+import PoliceDashboard from "@/pages/police/PoliceDashboard";
+import UserDashboard from "@/pages/user/UserDashboard";
+import ProtectedRoute from "@/utils/ProtectedRoute";
 import FireDashboard from "@/pages/firebrigade/FireDashboard";
-import ProtectedRoute from "@/utils/ProtectedRoute"
 
 const router = createBrowserRouter([
   {
@@ -32,25 +39,32 @@ const router = createBrowserRouter([
   {
     path: "/police/dashboard",
     element: (
-      <ProtectedRoute>
-        <Dashboard />
-      </ProtectedRoute>
+      // <ProtectedRoute>
+      <PoliceDashboard />
     ),
+    //  </ProtectedRoute>
   },
   {
     path: "/police/profile",
     element: (
-      <ProtectedRoute>
-        <PoliceProfile />
-      </ProtectedRoute>
+      // <ProtectedRoute>
+      <PoliceProfile />
+      //  </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/user/dashboard",
+    element: (
+      // <ProtectedRoute>
+      <UserDashboard />
+      // </ProtectedRoute>
     ),
   },
   //Firefighter routes
   {
     path: "/fire/dashboard",
     element: <FireDashboard />,
-  }
+  },
 ]);
 
-
-export default router
+export default router;

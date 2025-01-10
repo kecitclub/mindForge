@@ -30,7 +30,7 @@ export function Response() {
   ];
 
   return (
-    <section className="bg-white py-16 px-4">
+    <section className="bg-white py-16 px-4" id="response">
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
