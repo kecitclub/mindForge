@@ -3,6 +3,7 @@ import App from "../App";
 import { Home, Chooserole, Signin, Signup, PoliceProfile } from "../pages/index";
 import Dashboard from "@/pages/police/PoliceDashboard";
 import FireDashboard from "@/pages/firebrigade/FireDashboard";
+import ProtectedRoute from "@/utils/ProtectedRoute"
 
 const router = createBrowserRouter([
   {
@@ -30,11 +31,19 @@ const router = createBrowserRouter([
   //police routes
   {
     path: "/police/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/police/profile",
-    element: <PoliceProfile />,
+    element: (
+      <ProtectedRoute>
+        <PoliceProfile />
+      </ProtectedRoute>
+    ),
   },
   //Firefighter routes
   {
@@ -43,4 +52,5 @@ const router = createBrowserRouter([
   }
 ]);
 
-export default router;
+
+export default router
