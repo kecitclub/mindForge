@@ -1,9 +1,57 @@
 import { Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export function Header() {
   const navigate = useNavigate()
+  const path = useLocation().pathname;
+
+
+  const btnName = () => {
+    switch (path) {
+      case '/':
+        return "Get Started"
+        break;
+
+      case '/chooserole':
+        return "Login"
+        break;
+
+      case '/signin':
+        return "Sign Up"
+        break;
+
+      case '/signup':
+        return "Login"
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  const redirectPath =  ()=>{
+    switch (path) {
+      case '/':
+        return "/chooserole"
+        break;
+
+      case '/chooserole':
+        return "/signin"
+        break;
+
+      case '/signin':
+        return "/signup"
+        break;
+
+      case '/signup':
+        return "/signin"
+        break;
+
+      default:
+        break;
+    }
+  }
 
   return (
     <nav className="flex items-center justify-between px-6 py-4 ">
@@ -33,9 +81,11 @@ export function Header() {
       <Button
         variant="destructive"
         className=" md:flex md:text-xl bg-red-600 hover:bg-red-800 rounded-lg"
-        onClick={() => navigate("/chooserole")}
+        onClick={() => navigate(redirectPath())}
       >
-        Get Started
+       {
+        btnName()
+       }
       </Button>
     </nav>
   )
