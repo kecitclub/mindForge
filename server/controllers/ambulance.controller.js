@@ -1,6 +1,5 @@
 import { Ambulance } from '../models/ambulance.model.js';
 import { User } from '../models/user.model.js';
-import { Hospital } from '../models/hospital.model.js';
 import { catchAsync } from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
 

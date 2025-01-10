@@ -24,4 +24,4 @@ const fireBrigadeSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-export const FireBrigade = User.discriminator('Ambulance', fireBrigadeSchema);
+export const FireBrigade = User.discriminator('FireBrigade', fireBrigadeSchema);
