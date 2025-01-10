@@ -4,8 +4,8 @@ import { User } from "./user.model.js";
 const policeSchema = new mongoose.Schema({
     policeStationLocation: {
         type: {
-            latitude: { type: Number },
-            longitude: { type: Number }
+            lat: { type: Number },
+            lng: { type: Number }
         }
     },
     user: {
