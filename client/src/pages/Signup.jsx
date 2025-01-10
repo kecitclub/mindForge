@@ -12,12 +12,13 @@ import axios from "axios"
 export function Signup() {
   const navigate = useNavigate()
 
+  const role = localStorage.getItem("role")
+
   const [formInputs, setFormInputs] = useState({
     fullName: "",
     email: "",
     password: "",
     phoneNumber: "",
-    role: "",
   })
 
   const changeEventHandler = e => {
@@ -27,10 +28,15 @@ export function Signup() {
   const formSubmitHandler = async e => {
     e.preventDefault()
 
+    const data = {
+      ...formInputs,
+      role,
+    }
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/register`,
-        formInputs,
+        data,
         {
           headers: {
             "Content-Type": "application/json",
@@ -40,7 +46,7 @@ export function Signup() {
       )
 
       if (response.status === 201) {
-        navigate("/")
+        // navigate("/")
       }
     } catch (e) {
       console.error(e)

@@ -1,7 +1,10 @@
-import { Shield } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Shield } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
 
 export function Header() {
+  const navigate = useNavigate()
+
   return (
     <nav className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
       <div className="flex items-center gap-2">
@@ -27,9 +30,13 @@ export function Header() {
         </a>
       </div>
 
-      <Button variant="destructive" className="hidden md:block">
+      <Button
+        variant="destructive"
+        className="hidden md:block"
+        onClick={() => navigate("/chooserole")}
+      >
         Get Started
       </Button>
     </nav>
-  );
+  )
 }

@@ -23,11 +23,11 @@ const userSchema = new Schema(
             required: [true, "Password is required"],
             select: false,
         },
-        // role: {
-        //     type: String,
-        //     enum: ['Ambulance', 'Hospital', "FireBrigade", "Police"],
-        //     required: true
-        // },
+        role: {
+            type: String,
+            enum: ['Ambulance', 'User', "FireBrigade", "Police"],
+            required: true
+        },
         phoneNumber:
         {
             type: Number,

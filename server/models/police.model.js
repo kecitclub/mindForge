@@ -14,4 +14,4 @@ const policeSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-export const Police = User.discriminator('Ambulance', policeSchema);
+export const Police = User.discriminator('Police', policeSchema);
