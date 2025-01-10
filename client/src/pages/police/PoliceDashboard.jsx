@@ -6,10 +6,9 @@ const PoliceDashboard = () => {
     <>
       <div className="flex">
         <Sidebar />
-        <div>
-        <EmergencyCalls />
+        <div className="p-6 w-full">
+          <EmergencyCalls />
         </div>
-        
       </div>
     </>
   );
