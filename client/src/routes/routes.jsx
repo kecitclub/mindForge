@@ -7,7 +7,9 @@ import {
   Signup,
   PoliceProfile,
 } from "../pages/index";
-import Dashboard from "@/pages/police/PoliceDashboard";
+import PoliceDashboard from "@/pages/police/PoliceDashboard";
+import UserDashboard from "@/pages/user/UserDashboard";
+import ProtectedRoute from "@/utils/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -35,15 +37,27 @@ const router = createBrowserRouter([
   //police routes
   {
     path: "/police/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <PoliceDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/police/profile",
-    element: <PoliceProfile />,
+    element: (
+      <ProtectedRoute>
+        <PoliceProfile />
+      </ProtectedRoute>
+    ),
   },
   {
-    path: "/police/dashboard",
-    element: <Dashboard />,
+    path: "/user/dashboard",
+    element: (
+      // <ProtectedRoute>
+      <UserDashboard />
+      // </ProtectedRoute>
+    ),
   },
 ]);
 

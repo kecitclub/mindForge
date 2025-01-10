@@ -27,7 +27,8 @@ export default function Sidebar() {
   return (
     <aside
       className={`
-        flex flex-col
+        hidden
+        md:flex flex-col
         h-screen
         bg-background
         border-r

@@ -4,6 +4,7 @@ import AppError from "../utils/appError.js"
 import { Ambulance } from "../models/ambulance.model.js"
 import { FireBrigade } from "../models/fireBrigade.model.js"
 import { Police } from "../models/police.model.js"
+import { NormalUser } from "../models/normalUser.model.js"
 
 const register = catchAsync(async (req, res, next) => {
     const { fullName, email, password, phoneNumber, role, vehicleNumber, hospitalAddress, latitude, longitude, specialization, dob } = req.body
@@ -34,14 +35,14 @@ const register = catchAsync(async (req, res, next) => {
             vehicleNumber
         });
     }
-    else if (role === 'User') {
-        newUser = await User.create({
+    else if (role === 'NormalUser') {
+
+        newUser = await NormalUser.create({
             fullName,
             email,
             password,
             role,
             phoneNumber,
-            dob
         });
     } else if (role === "Police") {
         newUser = await Police.create({
@@ -153,6 +154,21 @@ const ambulanceRequest = catchAsync(async (req, res, next) => {
     }
 });
 
+const getUser = catchAsync(async (req, res, next) => {
+    const userId = req.user._id
+    if (!userId) {
+        throw new AppError("User not found", 404)
+    }
+
+    const user = await User.findById(userId)
+
+    res.status(200).json({
+        status: "success",
+        user
+    })
+})
+
+
 export {
-    register, login, logout, ambulanceRequest
+    register, login, logout, ambulanceRequest, getUser
 }

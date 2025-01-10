@@ -13,7 +13,6 @@ export function Header() {
         to="/"
         className="flex items-center gap-2 hover:scale-110 cursor-pointer"
       >
-        {/* <Shield className="h-8 w-8 text-red-600" /> */}
         <img src={headerLogo} alt="headerLogo" className="h-14 w-14" />
         <span className="text-xl font-bold">Emergenix</span>
       </Link>
