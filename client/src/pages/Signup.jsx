@@ -51,7 +51,7 @@ export function Signup() {
       );
 
       if (response.status === 201) {
-        navigate("/");
+        navigate("/signin");
       }
     } catch (e) {
       console.error(e);
@@ -131,20 +131,6 @@ export function Signup() {
                 placeholder="Enter your vehicle number"
                 value={formInputs.vehicleNumber}
                 name="vehicleNumber"
-                onChange={changeEventHandler}
-              />
-            </div>
-          )}
-
-          {role === "Police" && (
-            <div className="space-y-2">
-              <Label htmlFor="stationNumber">Station Number</Label>
-              <Input
-                id="stationNumber"
-                type="text"
-                placeholder="Enter your station number"
-                value={formInputs.stationNumber}
-                name="stationNumber"
                 onChange={changeEventHandler}
               />
             </div>

@@ -31,6 +31,16 @@ const io = new SocketServer(server, {
 io.on('connection', (socket) => {
     console.log('A user connected');
 
+    socket.on('ambulanceLocation', (data) => {
+        console.log("Ambulance location: ", data);
+        io.emit('ambulanceLocation', data);
+    });
+
+    socket.on("bookAmbulance", (data) => {
+        console.log("Book ambulance data: ", data)
+        io.emit("bookAmbulance", data)
+    })
+
     // Listen for custom events from the client
     socket.on('message', (data) => {
         console.log('Message from client:', data);

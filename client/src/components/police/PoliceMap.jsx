@@ -1,4 +1,3 @@
-import { Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import MapPolice from "./MapPolice";
 
 const incidents = [
   {
@@ -40,8 +40,8 @@ const PoliceMap = () => {
         </div>
       </div>
 
-      <div className="bg-gray-50 rounded-lg p-12 flex flex-col items-center justify-center min-h-[400px]">
-        Map
+      <div className="bg-gray-50 rounded-lg  flex flex-col  justify-start w-full ">
+        <MapPolice />
       </div>
 
       <Table>
@@ -60,11 +60,10 @@ const PoliceMap = () => {
             <TableRow key={index}>
               <TableCell>
                 <span
-                  className={`px-3 py-1 rounded-full text-sm ${
-                    incident.status === "Critical"
+                  className={`px-3 py-1 rounded-full text-sm ${incident.status === "Critical"
                       ? "bg-red-100 text-red-700"
                       : "bg-yellow-100 text-yellow-700"
-                  }`}
+                    }`}
                 >
                   {incident.status}
                 </span>
