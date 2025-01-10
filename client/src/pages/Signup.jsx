@@ -173,6 +173,7 @@ export function Signup() {
           </div>
         </CardContent>
       </Card>
+      
       {
         role === "FireBrigade" && <LocationPicker />
       }
