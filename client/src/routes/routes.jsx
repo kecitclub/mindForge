@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { Home, Chooserole } from "../pages/index";
+import { Home, Chooserole, Signin, Signup, PoliceProfile } from "../pages/index";
+import Dashboard from "@/pages/police/PoliceDashboard";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,24 @@ const router = createBrowserRouter([
         path: "/chooserole",
         element: <Chooserole />,
       },
+      {
+        path: "/signin",
+        element: <Signin />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
     ],
+  },
+  //police routes
+  {
+    path: "/police/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/police/profile",
+    element: <PoliceProfile />,
   },
 ]);
 
