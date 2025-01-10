@@ -16,7 +16,7 @@ const customIcon = new L.Icon({
 })
 
 const userIcon = new L.Icon({
-    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+    iconUrl: 'https://media.discordapp.net/attachments/1326815889643016196/1327258729212678215/police.png?ex=67826984&is=67811804&hm=92f168fadb8c6c437efc9efa200276a0492d48b94aba73de3ff82f07632cbf1f&=&format=webp&quality=lossless&width=443&height=443',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
     iconSize: [24, 34],
     iconAnchor: [12, 41],
