@@ -1,6 +1,5 @@
 import express from "express";
 import userRouter from "./routes/user.routes.js";
-import hospitalRouter from "./routes/hospital.routes.js";
 import ambulanceRouter from "./routes/ambulance.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -47,7 +46,6 @@ app.use(cookieParser()) // allows to access cookies of browser as well set the c
 
 // routes
 app.use("/api/v1/user", userRouter)
-app.use("/api/v1/hospital", hospitalRouter)
 app.use("/api/v1/ambulance", ambulanceRouter)
 
 app.use((err, req, res, next) => {
