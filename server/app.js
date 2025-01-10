@@ -10,7 +10,22 @@ import AppError from "./utils/appError.js";
 
 const app = express();
 const server = http.createServer(app);
-const io = new SocketServer(server);
+
+const allowedOrigins = process.env.CORS_ORIGIN.split(",") // split the string by comma and store in array
+
+app.use(
+    cors({
+        origin: allowedOrigins, // only the url of cors origin is allowed and pass allowedOrigins
+        credentials: true,
+    })
+)
+
+const io = new SocketServer(server, {
+    cors: {
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST"]
+    }
+})
 
 // Listen for socket connection
 io.on('connection', (socket) => {
@@ -29,14 +44,8 @@ io.on('connection', (socket) => {
     });
 });
 
-const allowedOrigins = process.env.CORS_ORIGIN.split(",") // split the string by comma and store in array
 
-app.use(
-    cors({
-        origin: allowedOrigins, // only the url of cors origin is allowed and pass allowedOrigins
-        credentials: true,
-    })
-)
+
 
 app.use(express.json({ limit: "16kb" })) // cann remove limit. set this only when limiting json.
 app.use(express.urlencoded({ extended: true, limit: "16kb" })) // allows to receive data from url by encoding special characters.

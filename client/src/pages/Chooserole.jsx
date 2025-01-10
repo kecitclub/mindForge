@@ -1,6 +1,5 @@
 import { useUserStore } from "@/store/useUserStore"
 import { Ambulance, FireExtinguisher, Shield, User } from "lucide-react"
-import { useState } from "react"
 import { Link } from "react-router-dom"
 
 function RoleCard({
@@ -16,6 +15,7 @@ function RoleCard({
       <div className={`p-4 rounded-full mb-4 ${iconBgColor}`}>{icon}</div>
       <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
       <p className="text-gray-600 text-center mb-6">{description}</p>
+      
       <Link to="/signup">
         <button
           onClick={onClick}
@@ -44,6 +44,7 @@ export function Chooserole() {
       description: "Provide medical emergency response and transportation",
       buttonColor: "bg-emerald-500 hover:bg-emerald-600",
       iconBgColor: "bg-emerald-50",
+      vehicleNo: "Vehicle Number",
     },
     {
       icon: <FireExtinguisher className="w-8 h-8 text-red-500 animate-pulse" />,

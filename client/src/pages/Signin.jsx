@@ -12,7 +12,7 @@ import { useUserStore } from "@/store/useUserStore"
 
 export function Signin() {
   const navigate = useNavigate()
-  const { user, setUser } = useUserStore()
+  const { setUser } = useUserStore()
 
   const [formInputs, setFormInputs] = useState({
     email: "",
@@ -39,9 +39,10 @@ export function Signin() {
       )
 
       if (response.status === 200) {
+        console.log(response.data.user);
         setUser(response.data.user)
 
-        if (user.role === "Police") {
+        if (response.data.user.role === "Police") {
           navigate("/police/dashboard")
         }
       }
