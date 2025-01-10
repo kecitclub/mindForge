@@ -16,7 +16,7 @@ function LocationMarker({ position, setPosition, myIcon }) {
         if (position ) return;
         map.locate({ setView: true, maxZoom: 200 }).on("locationfound", function (e) {
             const { lat, lng } = e.latlng; // Use the location found by Leaflet
-            setPosition({ latitude: lat, longitude: lng }); // Update the position state with the found location
+            setPosition({  lat,  lng }); // Update the position state with the found location
             map.flyTo([lat, lng], 200); // Automatically zoom in to the found location
         }).on("locationerror", function (e) {
             setError(e.message);
