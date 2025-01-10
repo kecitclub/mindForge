@@ -25,7 +25,7 @@ const userSchema = new Schema(
         },
         role: {
             type: String,
-            enum: ['Ambulance', 'User', "FireBrigade", "Police"],
+            enum: ['Ambulance', 'NormalUser', "FireBrigade", "Police"],
             required: true
         },
         phoneNumber:

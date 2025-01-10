@@ -8,11 +8,12 @@ import { Link, useNavigate } from "react-router-dom"
 import sideLogo from "../assets/sidelogo.png"
 import { useState } from "react"
 import axios from "axios"
+import { useUserStore } from "@/store/useUserStore"
 
 export function Signup() {
   const navigate = useNavigate()
 
-  const role = localStorage.getItem("role")
+  const { role } = useUserStore()
 
   const [formInputs, setFormInputs] = useState({
     fullName: "",
@@ -46,7 +47,7 @@ export function Signup() {
       )
 
       if (response.status === 201) {
-        // navigate("/")
+        navigate("/")
       }
     } catch (e) {
       console.error(e)

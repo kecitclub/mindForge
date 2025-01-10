@@ -1,7 +1,8 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import { Home, Chooserole, Signin, Signup, PoliceProfile } from "../pages/index";
-import Dashboard from "@/pages/police/PoliceDashboard";
+import { createBrowserRouter } from "react-router-dom"
+import App from "../App"
+import { Home, Chooserole, Signin, Signup, PoliceProfile } from "../pages/index"
+import Dashboard from "@/pages/police/PoliceDashboard"
+import ProtectedRoute from "@/utils/ProtectedRoute"
 
 const router = createBrowserRouter([
   {
@@ -29,12 +30,20 @@ const router = createBrowserRouter([
   //police routes
   {
     path: "/police/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/police/profile",
-    element: <PoliceProfile />,
+    element: (
+      <ProtectedRoute>
+        <PoliceProfile />
+      </ProtectedRoute>
+    ),
   },
-]);
+])
 
-export default router;
+export default router

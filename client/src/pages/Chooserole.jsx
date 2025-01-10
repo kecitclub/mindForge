@@ -1,3 +1,4 @@
+import { useUserStore } from "@/store/useUserStore"
 import { Ambulance, FireExtinguisher, Shield, User } from "lucide-react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
@@ -28,6 +29,7 @@ function RoleCard({
 }
 
 export function Chooserole() {
+  const { setUserRole } = useUserStore()
   const roles = [
     {
       icon: <User className="w-8 h-8 text-blue-500 animate-pulse" />,
@@ -77,7 +79,7 @@ export function Chooserole() {
             <RoleCard
               key={role.title}
               {...role}
-              onClick={() => localStorage.setItem("role", role.title)}
+              onClick={() => setUserRole(role.title)}
             />
           ))}
         </div>
