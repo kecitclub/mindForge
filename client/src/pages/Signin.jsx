@@ -41,7 +41,7 @@ export function Signin() {
       if (response.status === 200) {
         setUser(response.data.user)
 
-        if (user.role === "police") {
+        if (user.role === "Police") {
           navigate("/police/dashboard")
         }
       }
