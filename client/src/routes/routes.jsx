@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import { Home, Chooserole, Signin, Signup, PoliceProfile } from "../pages/index";
 import Dashboard from "@/pages/police/PoliceDashboard";
+import FireDashboard from "@/pages/firebrigade/FireDashboard";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
     path: "/police/profile",
     element: <PoliceProfile />,
   },
+  //Firefighter routes
+  {
+    path: "/fire/dashboard",
+    element: <FireDashboard />,
+  }
 ]);
 
 export default router;
