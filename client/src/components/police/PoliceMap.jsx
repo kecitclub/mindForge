@@ -41,7 +41,7 @@ const PoliceMap = () => {
         </div>
       </div>
 
-      <div className="bg-gray-50 rounded-lg p-12 flex flex-col items-center justify-center min-h-[400px]">
+      <div className="bg-gray-50 rounded-lg  flex flex-col  justify-start w-full ">
         <MapPolice />
       </div>
 

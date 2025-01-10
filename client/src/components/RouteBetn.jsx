@@ -5,8 +5,8 @@ import "leaflet-routing-machine";
 const createRoutineMachineLayer = ({ my, other }) => {
     const instance = L.Routing.control({
         waypoints: [
-            L.latLng(my.latitude, my.longitude),
-            L.latLng(other.latitude, other.longitude)
+            L.latLng(my.lat, my.lng),
+            L.latLng(other.lat, other.lng)
         ],
         lineOptions: {
             styles: [{ color: "red", weight: 2 }]

@@ -51,7 +51,7 @@ export function Signup() {
       );
 
       if (response.status === 201) {
-        navigate("/");
+        navigate("/signin");
       }
     } catch (e) {
       console.error(e);

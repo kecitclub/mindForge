@@ -14,10 +14,10 @@ function LocationMarker({ position, setPosition, myIcon }) {
     useEffect(() => {
 
         if (position) return;
-        map.locate({ setView: true, maxZoom: 16 }).on("locationfound", function (e) {
+        map.locate({ setView: true, maxZoom: 200 }).on("locationfound", function (e) {
             const { lat, lng } = e.latlng; // Use the location found by Leaflet
             setPosition({ latitude: lat, longitude: lng }); // Update the position state with the found location
-            map.flyTo([lat, lng], 10); // Automatically zoom in to the found location
+            map.flyTo([lat, lng], 200); // Automatically zoom in to the found location
         }).on("locationerror", function (e) {
             setError(e.message);
         });
@@ -34,28 +34,24 @@ function LocationMarker({ position, setPosition, myIcon }) {
 
 const MapLocation = ({ myLocation, setMyLocation, locationError, myIcon, otherIcon, otherLocations, bookedLocation, isRoutingEnable }) => {
     console.log("My Location: ", myLocation)
-    const newLocation = {
-        lat: myLocation.latitude,
-        lng: myLocation.longitude
-    }
     return (
         <div className="flex flex-col items-center space-y-4">
             {locationError && (
                 <p className="text-red-500">{locationError}</p>
             )}
-            <div className="w-[70vw] h-[250px]">
-                <MapContainer center={newLocation || [0, 0]} zoom={newLocation ? 10 : 2} style={{ height: '100%', width: '100%' }}>
+            <div className="w-full h-[450px]">
+                <MapContainer center={myLocation || [0, 0]} zoom={myLocation ? 13 : 2} style={{ height: '100%', width: '100%' }}>
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    <LocationMarker position={newLocation} setPosition={setMyLocation} myIcon={myIcon} />
+                    <LocationMarker position={myLocation} setPosition={setMyLocation} myIcon={myIcon} />
                     {myLocation && otherLocations.map((location, index) => (
-                        <Marker key={index} position={[location.latitude, location.longitude]} icon={otherIcon}>
+                        <Marker key={index} position={[location.lat, location.lng]} icon={otherIcon}>
                             <Popup>
                                 Ambulance {index + 1}<br />
-                                Lat: {location.latitude.toFixed(6)}<br />
-                                Lng: {location.longitute.toFixed(6)}
+                                Lat: {location.lat.toFixed(6)}<br />
+                                Lng: {location.lng.toFixed(6)}
                             </Popup>
                         </Marker>
                     ))}
