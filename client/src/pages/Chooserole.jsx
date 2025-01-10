@@ -1,6 +1,6 @@
-import { User, Ambulance, FireExtinguisher, Shield } from "lucide-react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Ambulance, FireExtinguisher, Shield, User } from "lucide-react"
+
 function RoleCard({
   icon,
   title,
@@ -24,12 +24,10 @@ function RoleCard({
         </button>
       </Link>
     </div>
-  );
+  )
 }
 
 export function Chooserole() {
-  const [selectedRole, setSelectedRole] = useState(null);
-
   const roles = [
     {
       icon: <User className="w-8 h-8 text-blue-500 animate-pulse" />,
@@ -40,7 +38,7 @@ export function Chooserole() {
     },
     {
       icon: <Ambulance className="w-8 h-8 text-emerald-500 animate-pulse" />,
-      title: "Ambulance Driver",
+      title: "Ambulance",
       description: "Provide medical emergency response and transportation",
       buttonColor: "bg-emerald-500 hover:bg-emerald-600",
       iconBgColor: "bg-emerald-50",
@@ -48,7 +46,7 @@ export function Chooserole() {
     },
     {
       icon: <FireExtinguisher className="w-8 h-8 text-red-500 animate-pulse" />,
-      title: "Fire Brigade",
+      title: "FireBrigade",
       description: "Respond to fire emergencies and rescue operations",
       buttonColor: "bg-red-500 hover:bg-red-600",
       iconBgColor: "bg-red-50",
@@ -60,7 +58,8 @@ export function Chooserole() {
       buttonColor: "bg-purple-500 hover:bg-purple-600",
       iconBgColor: "bg-purple-50",
     },
-  ];
+  ]
+
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -75,15 +74,15 @@ export function Chooserole() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {roles.map((role) => (
+          {roles.map(role => (
             <RoleCard
               key={role.title}
               {...role}
-              onClick={() => setSelectedRole(role.title)}
+              onClick={() => localStorage.setItem("role", role.title)}
             />
           ))}
         </div>
       </div>
     </div>
-  );
+  )
 }

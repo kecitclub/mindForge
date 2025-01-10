@@ -1,8 +1,9 @@
 import { User } from "../models/user.model.js"
 import { catchAsync } from "../utils/catchAsync.js"
 import AppError from "../utils/appError.js"
-import { Hospital } from "../models/hospital.model.js"
 import { Ambulance } from "../models/ambulance.model.js"
+import { FireBrigade } from "../models/fireBrigade.model.js"
+import { Police } from "../models/police.model.js"
 
 const register = catchAsync(async (req, res, next) => {
     const { fullName, email, password, phoneNumber, role, vehicleNumber, hospitalAddress, latitude, longitude, specialization, dob } = req.body
@@ -13,49 +14,47 @@ const register = catchAsync(async (req, res, next) => {
         throw new AppError("The user with this email already exists", 400)
     }
 
-    const newUser = await User.create({
-        fullName,
-        email,
-        password,
-        // role,
-        phoneNumber,
-    });
+    let newUser
 
-    // if (role === 'FireBrigade') {
-    //     newUser = await User.create({
-    //         fullName,
-    //         email,
-    //         password,
-    //         role,
-    //         phoneNumber,
-    //         dob
-    //     });
-    // } else if (role === 'Ambulance') {
-    //     newUser = await Ambulance.create({
-    //         fullName,
-    //         email,
-    //         password,
-    //         role,
-    //         phoneNumber,
-    //         vehicleNumber
-    //     });
-    // } else if (role === "Hospital") {
-    //     newUser = await Hospital.create({
-    //         fullName,
-    //         email,
-    //         password,
-    //         role,
-    //         phoneNumber,
-    //         hospitalAddress,
-    //         hospitalLocation: {
-    //             latitude,
-    //             longitude
-    //         },
-    //         specialization
-    //     });
-    // } else {
-    //     throw new AppError("Inappropriate role!", 404)
-    // }
+    if (role === 'FireBrigade') {
+        newUser = await FireBrigade.create({
+            fullName,
+            email,
+            password,
+            role,
+            phoneNumber,
+        });
+    } else if (role === 'Ambulance') {
+        newUser = await Ambulance.create({
+            fullName,
+            email,
+            password,
+            role,
+            phoneNumber,
+            vehicleNumber
+        });
+    }
+    else if (role === 'User') {
+        newUser = await User.create({
+            fullName,
+            email,
+            password,
+            role,
+            phoneNumber,
+            dob
+        });
+    } else if (role === "Police") {
+        newUser = await Police.create({
+            fullName,
+            email,
+            password,
+            role,
+            phoneNumber,
+        });
+    }
+    else {
+        throw new AppError("Inappropriate role!", 404)
+    }
 
 
     res.status(201).json({
