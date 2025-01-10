@@ -113,7 +113,7 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <MapPin className="w-5 h-5 text-red-500 mt-1" />
                 <div>
-                  erc Tinkune Dharan
+                  Vijaypur Dharan
                   <br />
                   Dharan road, st 7459
                 </div>

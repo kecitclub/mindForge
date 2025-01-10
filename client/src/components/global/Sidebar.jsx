@@ -9,7 +9,6 @@ import {
   User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useState } from "react";
 import mainLogo from "../../assets/mainlogo.png";
 import { Link } from "react-router-dom";
@@ -32,6 +31,7 @@ export default function Sidebar() {
       className={`
         hidden
         md:flex flex-col
+        h-screen
         bg-background
         border-r
         transition-all
@@ -94,21 +94,16 @@ export default function Sidebar() {
       <div className="border-t p-4">
         <Link to="/police/profile">
           <div
-            className={`flex ${expanded ? "items-center" : "justify-center"
-              } gap-3`}
+            className={`flex ${
+              expanded ? "items-center" : "justify-center"
+            } gap-3`}
           >
             <User className="h-8 w-8" />
             {expanded && (
               <div className="flex flex-col">
-                <span className="text-sm font-medium">{
-
-                  user?.fullName
-                }
-                </span>
+                <span className="text-sm font-medium">{user?.fullName}</span>
                 <span className="text-xs text-foreground/60">
-                  {
-                    user?.email
-                  }
+                  {user?.email}
                 </span>
               </div>
             )}
