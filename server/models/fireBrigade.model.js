@@ -9,8 +9,8 @@ const fireBrigadeSchema = new mongoose.Schema({
     },
     liveLocation: {
         type: {
-            latitude: { type: Number },
-            longitude: { type: Number }
+            lat: { type: Number },
+            lng: { type: Number }
         }
     },
     user: {

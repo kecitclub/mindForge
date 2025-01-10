@@ -50,48 +50,13 @@ export const acceptRequest = catchAsync(async (req, res) => {
     }
 })
 
-export const notifyHospital = catchAsync(async (req, res) => {
-    const ambulanceId = req.user._id
-    const { hospitalId, estimatedTimeOfArrival, disease, healthConditionRating } = req.body;
 
-    if (!ambulanceId || !hospitalId || !estimatedTimeOfArrival || !disease || !healthConditionRating) {
-        throw new AppError('Missing required fields', 400)
-    }
 
-    try {
-        const ambulance = await Ambulance.findById(ambulanceId);
-        if (!ambulance) {
-            throw new AppError('Ambulance not found.', 404)
-        }
-
-        const hospital = await Hospital.findById(hospitalId);
-        if (!hospital) {
-            throw new AppError('Hospital not found.', 404)
-        }
-
-        hospital.ambulanceInRoute.push({
-            ambulanceId,
-            estimatedTimeOfArrival
-        });
-        await hospital.save();
-
-        return res.status(200).json({
-            status: "success",
-            message: 'Hospital has been notified about the incoming patient.',
-            hospital: hospital._id,
-            ambulance: ambulance._id,
-            patient: { disease, healthConditionRating, waitingStatus: "pickedup" }
-        });
-    } catch (error) {
-        throw new AppError(error.message, error.statusCode)
-    }
-});
-
-export const updateAmbulanceLocation = async (latitude, longitude) => {
+export const updateAmbulanceLocation = async (lat, lng) => {
     const { ambulanceId } = req.user._id;
 
-    if (!latitude || !longitude) {
-        throw new AppError("Latitude and Longitude are required", 400);
+    if (!lat || !lng) {
+        throw new AppError("latitude and Longitude are required", 400);
     }
 
     try {
@@ -101,7 +66,7 @@ export const updateAmbulanceLocation = async (latitude, longitude) => {
             throw new AppError("Ambulance not found", 404);
         }
 
-        ambulance.liveLocation = { latitude, longitude };
+        ambulance.liveLocation = { lat, lng };
         await ambulance.save();
     } catch (err) {
         console.error(err);
