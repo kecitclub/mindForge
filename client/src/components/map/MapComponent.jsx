@@ -20,7 +20,7 @@ export default function MapComponent({ position, setPosition }) {
     if (!mapInstanceRef.current && mapContainerRef.current) {
       mapInstanceRef.current = L.map(mapContainerRef.current).setView(
         [position.latitude || 0, position.longitude || 0],
-        25
+        15
       )
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

@@ -30,8 +30,8 @@ export default function Sidebar() {
   return (
     <aside
       className={`
-        flex flex-col
-        h-screen
+        hidden
+        md:flex flex-col
         bg-background
         border-r
         transition-all
@@ -56,13 +56,9 @@ export default function Sidebar() {
 
       {/* Logo Section */}
       <div className="p-4 h-16 flex items-center justify-center border-b">
-        {expanded ? (
-          <span className="w-12 h-12">
-            <img src={mainLogo} alt="logo" />
-          </span>
-        ) : (
-          <span className="font-bold text-xl">L</span>
-        )}
+        <span className="w-12 h-12">
+          <img src={mainLogo} alt="logo" />
+        </span>
       </div>
 
       {/* Navigation Items */}

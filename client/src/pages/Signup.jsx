@@ -13,7 +13,7 @@ import LocationPicker from "@/components/map/SignUpLocationPicker"
 import { useLocationStore } from "@/store/useLocationStore"
 
 export function Signup() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { role } = useUserStore()
   const { policePosition } = useLocationStore()
@@ -23,18 +23,18 @@ export function Signup() {
     email: "",
     password: "",
     phoneNumber: "",
-  })
+  });
 
-  const changeEventHandler = e => {
-    setFormInputs({ ...formInputs, [e.target.name]: e.target.value })
-  }
+  const changeEventHandler = (e) => {
+    setFormInputs({ ...formInputs, [e.target.name]: e.target.value });
+  };
 
-  const formSubmitHandler = async e => {
-    e.preventDefault()
+  const formSubmitHandler = async (e) => {
+    e.preventDefault();
 
     const data = {
       ...formInputs,
-      role: role === "User"?  "NormalUser" : role,
+      role: role === "User" ? "NormalUser" : role,
       ...policePosition
     }
 
@@ -48,15 +48,15 @@ export function Signup() {
           },
           withCredentials: true,
         }
-      )
+      );
 
       if (response.status === 201) {
-        navigate("/")
+        navigate("/");
       }
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
-  }
+  };
 
   return (
     <form
@@ -122,6 +122,33 @@ export function Signup() {
               onChange={changeEventHandler}
             />
           </div>
+          {(role === "Ambulance" || role === "FireBrigade") && (
+            <div className="space-y-2">
+              <Label htmlFor="vehicleNumber">Vehicle Number</Label>
+              <Input
+                id="vehicleNumber"
+                type="text"
+                placeholder="Enter your vehicle number"
+                value={formInputs.vehicleNumber}
+                name="vehicleNumber"
+                onChange={changeEventHandler}
+              />
+            </div>
+          )}
+
+          {role === "Police" && (
+            <div className="space-y-2">
+              <Label htmlFor="stationNumber">Station Number</Label>
+              <Input
+                id="stationNumber"
+                type="text"
+                placeholder="Enter your station number"
+                value={formInputs.stationNumber}
+                name="stationNumber"
+                onChange={changeEventHandler}
+              />
+            </div>
+          )}
           <div className="flex items-center space-x-2">
             <Checkbox id="terms" />
             <label
@@ -153,5 +180,5 @@ export function Signup() {
         role === "Police" && <LocationPicker />
       }
     </form>
-  )
+  );
 }

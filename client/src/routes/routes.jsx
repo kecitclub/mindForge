@@ -1,7 +1,8 @@
-import { createBrowserRouter } from "react-router-dom"
-import App from "../App"
-import { Home, Chooserole, Signin, Signup, PoliceProfile } from "../pages/index"
-import Dashboard from "@/pages/police/PoliceDashboard"
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App";
+import { Home, Chooserole, Signin, Signup, PoliceProfile } from "../pages/index";
+import Dashboard from "@/pages/police/PoliceDashboard";
+import FireDashboard from "@/pages/firebrigade/FireDashboard";
 import ProtectedRoute from "@/utils/ProtectedRoute"
 
 const router = createBrowserRouter([
@@ -44,6 +45,12 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-])
+  //Firefighter routes
+  {
+    path: "/fire/dashboard",
+    element: <FireDashboard />,
+  }
+]);
+
 
 export default router
