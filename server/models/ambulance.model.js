@@ -13,19 +13,15 @@ const ambulanceSchema = new mongoose.Schema({
             longitude: { type: Number }
         }
     },
-    patient: {
+    normalUser: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Patient'
+        ref: 'NormalUser'
     },
     status: {
         type: String,
         enum: ['available', 'unavailable'],
         default: 'available'
     },
-    hospitalAssigned: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Hospital'
-    },
 }, { timestamps: true });
 
-export const Ambulance = User.discriminator('Ambulance', ambulanceSchema);;
+export const Ambulance = User.discriminator('Ambulance', ambulanceSchema);

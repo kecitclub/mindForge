@@ -8,9 +8,11 @@ import { Link, useNavigate } from "react-router-dom"
 import sideLogo from "../assets/sidelogo.png"
 import { useState } from "react"
 import axios from "axios"
+import { useUserStore } from "@/store/useUserStore"
 
 export function Signin() {
   const navigate = useNavigate()
+  const { user, setUser } = useUserStore()
 
   const [formInputs, setFormInputs] = useState({
     email: "",
@@ -37,7 +39,11 @@ export function Signin() {
       )
 
       if (response.status === 200) {
-        navigate("/")
+        setUser(response.data.user)
+
+        if (user.role === "Police") {
+          navigate("/police/dashboard")
+        }
       }
     } catch (e) {
       console.error(e)
