@@ -1,16 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import {
-  Home,
-  Chooserole,
-  Signin,
-  Signup,
-  PoliceProfile,
-} from "../pages/index";
-import PoliceDashboard from "@/pages/police/PoliceDashboard";
-import UserDashboard from "@/pages/user/UserDashboard";
-import ProtectedRoute from "@/utils/ProtectedRoute";
-import FireDashboard from "@/pages/firebrigade/FireDashboard";
+import { createBrowserRouter } from "react-router-dom"
+import App from "../App"
+import { Home, Chooserole, Signin, Signup, PoliceProfile } from "../pages/index"
+import PoliceDashboard from "@/pages/police/PoliceDashboard"
+import UserDashboard from "@/pages/user/UserDashboard"
+import ProtectedRoute from "@/utils/ProtectedRoute"
+import FireDashboard from "@/pages/firebrigade/FireDashboard"
 
 const router = createBrowserRouter([
   {
@@ -39,10 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/police/dashboard",
     element: (
-      // <ProtectedRoute>
-      <PoliceDashboard />
+      <ProtectedRoute>
+        <PoliceDashboard />
+      </ProtectedRoute>
     ),
-    //  </ProtectedRoute>
   },
   {
     path: "/police/profile",
@@ -65,6 +59,6 @@ const router = createBrowserRouter([
     path: "/fire/dashboard",
     element: <FireDashboard />,
   },
-]);
+])
 
-export default router;
+export default router
