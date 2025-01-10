@@ -86,3 +86,24 @@ export const notifyHospital = catchAsync(async (req, res) => {
         throw new AppError(error.message, error.statusCode)
     }
 });
+
+export const updateAmbulanceLocation = async (latitude, longitude) => {
+    const { ambulanceId } = req.user._id;
+
+    if (!latitude || !longitude) {
+        throw new AppError("Latitude and Longitude are required", 400);
+    }
+
+    try {
+        const ambulance = await Ambulance.findById(ambulanceId);
+
+        if (!ambulance) {
+            throw new AppError("Ambulance not found", 404);
+        }
+
+        ambulance.liveLocation = { latitude, longitude };
+        await ambulance.save();
+    } catch (err) {
+        console.error(err);
+    }
+};
