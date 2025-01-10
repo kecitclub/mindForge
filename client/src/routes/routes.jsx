@@ -68,11 +68,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/ambulance/dashboard",
-    element: (
-      <ProtectedRoute>
-        <AmbulanceDashboard />
-      </ProtectedRoute>
-    ),
+    element: <AmbulanceDashboard />,
   },
 ]);
 

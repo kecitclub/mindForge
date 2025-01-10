@@ -1,16 +1,14 @@
-import { MapPin, Share, Car, Copy, Ambulance, RefreshCw } from "lucide-react";
+import { MapPin, Ambulance, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 export default function LocationSection() {
   return (
-    <div className=" p-4" id="book">
-      <div className="flex lg:flex-col gap-6 ">
+    <div className=" p-4 " id="book">
+      <div className="flex flex-col gap-6 ">
         <div className="bg-white p-4 rounded-lg border flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-              <Car className="h-6 w-6 text-blue-500" />
+              <Ambulance className="h-6 w-6 text-blue-500" />
             </div>
             <div>
               <div className="font-medium">Ambulance Not Available</div>
@@ -20,7 +18,7 @@ export default function LocationSection() {
         <div className="bg-white p-4 rounded-lg border flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-              <Car className="h-6 w-6 text-blue-500" />
+              <Ambulance className="h-6 w-6 text-blue-500" />
             </div>
             <div>
               <div className="font-medium">Ambulance No:</div>
