@@ -9,11 +9,14 @@ import sideLogo from "../assets/sidelogo.png"
 import { useState } from "react"
 import axios from "axios"
 import { useUserStore } from "@/store/useUserStore"
+import LocationPicker from "@/components/map/SignUpLocationPicker"
+import { useLocationStore } from "@/store/useLocationStore"
 
 export function Signup() {
   const navigate = useNavigate()
 
   const { role } = useUserStore()
+  const { policePosition } = useLocationStore()
 
   const [formInputs, setFormInputs] = useState({
     fullName: "",
@@ -31,7 +34,8 @@ export function Signup() {
 
     const data = {
       ...formInputs,
-      role,
+      role: role === "User"?  "NormalUser" : role,
+      ...policePosition
     }
 
     try {
@@ -142,6 +146,12 @@ export function Signup() {
           </div>
         </CardContent>
       </Card>
+      {
+        role === "FireBrigade" && <LocationPicker />
+      }
+      {
+        role === "Police" && <LocationPicker />
+      }
     </form>
   )
 }

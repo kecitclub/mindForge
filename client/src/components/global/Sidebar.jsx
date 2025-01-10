@@ -6,15 +6,18 @@ import {
   Users,
   BarChart,
   HelpCircle,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useState } from "react";
 import mainLogo from "../../assets/mainlogo.png";
 import { Link } from "react-router-dom";
+import { useUserStore } from "@/store/useUserStore";
 
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(true);
+  const { user } = useUserStore();
 
   const navItems = [
     { icon: Home, label: "Dashboard", href: "#" },
@@ -95,19 +98,21 @@ export default function Sidebar() {
       <div className="border-t p-4">
         <Link to="/police/profile">
           <div
-            className={`flex ${
-              expanded ? "items-center" : "justify-center"
-            } gap-3`}
+            className={`flex ${expanded ? "items-center" : "justify-center"
+              } gap-3`}
           >
-            <Avatar className="h-8 w-8">
-              <AvatarImage src="/api/placeholder/32/32" alt="User avatar" />
-              <AvatarFallback>JD</AvatarFallback>
-            </Avatar>
+            <User className="h-8 w-8" />
             {expanded && (
               <div className="flex flex-col">
-                <span className="text-sm font-medium">John Doe</span>
+                <span className="text-sm font-medium">{
+
+                  user?.fullName
+                }
+                </span>
                 <span className="text-xs text-foreground/60">
-                  john@example.com
+                  {
+                    user?.email
+                  }
                 </span>
               </div>
             )}
