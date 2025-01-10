@@ -1,6 +1,6 @@
-import { User, Ambulance, FireExtinguisher, Shield } from 'lucide-react'
-import { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { User, Ambulance, FireExtinguisher, Shield } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 function RoleCard({
   icon,
   title,
@@ -14,13 +14,14 @@ function RoleCard({
       <div className={`p-4 rounded-full mb-4 ${iconBgColor}`}>{icon}</div>
       <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
       <p className="text-gray-600 text-center mb-6">{description}</p>
+      
       <Link to="/signup">
-      <button
-        onClick={onClick}
-        className={`w-full py-2 px-4 rounded-lg text-white font-medium transition-colors duration-200 ${buttonColor}`}
-      >
-        Register as {title}
-      </button>
+        <button
+          onClick={onClick}
+          className={`w-full py-2 px-4 rounded-lg text-white font-medium transition-colors duration-200 ${buttonColor}`}
+        >
+          Register as {title}
+        </button>
       </Link>
     </div>
   );
@@ -43,6 +44,7 @@ export function Chooserole() {
       description: "Provide medical emergency response and transportation",
       buttonColor: "bg-emerald-500 hover:bg-emerald-600",
       iconBgColor: "bg-emerald-50",
+      vehicleNo: "Vehicle Number",
     },
     {
       icon: <FireExtinguisher className="w-8 h-8 text-red-500 animate-pulse" />,
