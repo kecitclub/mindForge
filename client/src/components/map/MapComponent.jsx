@@ -19,7 +19,7 @@ export default function MapComponent({ position, setPosition }) {
     // Only initialize the map if it hasn't been initialized and the container exists
     if (!mapInstanceRef.current && mapContainerRef.current) {
       mapInstanceRef.current = L.map(mapContainerRef.current).setView(
-        [position.latitude || 0, position.longitude || 0],
+        [position.lat || 0, position.lng || 0],
         15
       )
 
@@ -28,7 +28,7 @@ export default function MapComponent({ position, setPosition }) {
       }).addTo(mapInstanceRef.current)
 
       markerRef.current = L.marker(
-        [position.latitude || 0, position.longitude || 0],
+        [position.lat || 0, position.lng || 0],
         { draggable: true }
       ).addTo(mapInstanceRef.current)
 
@@ -36,14 +36,15 @@ export default function MapComponent({ position, setPosition }) {
       markerRef.current.on('dragend', () => {
         const newPos = markerRef.current?.getLatLng()
         if (newPos) {
-          setPosition({ latitude: newPos.lat, longitude: newPos.lng })
+            console.log("Pos: ",newPos)
+          setPosition({ lat: newPos.lat, lng: newPos.lng })
         }
       })
     }
 
     // Update marker and view position when position prop changes
     if (mapInstanceRef.current && markerRef.current) {
-      const newLatLng = [position.latitude || 0, position.longitude || 0]
+      const newLatLng = [position.lat || 0, position.lng || 0]
       markerRef.current.setLatLng(newLatLng)
       mapInstanceRef.current.setView(newLatLng)
     }

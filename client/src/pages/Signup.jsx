@@ -135,20 +135,6 @@ export function Signup() {
               />
             </div>
           )}
-
-          {role === "Police" && (
-            <div className="space-y-2">
-              <Label htmlFor="stationNumber">Station Number</Label>
-              <Input
-                id="stationNumber"
-                type="text"
-                placeholder="Enter your station number"
-                value={formInputs.stationNumber}
-                name="stationNumber"
-                onChange={changeEventHandler}
-              />
-            </div>
-          )}
           <div className="flex items-center space-x-2">
             <Checkbox id="terms" />
             <label

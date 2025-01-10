@@ -18,7 +18,7 @@ export default function LocationPicker() {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
                 (pos) => {
-                    setPolicePosition({ latitude: pos.coords.latitude, longitude: pos.coords.longitude })
+                    setPolicePosition({ lat: pos.coords.latitude, lng: pos.coords.longitude })
                     setIsLoading(false)
                 },
                 (err) => {
