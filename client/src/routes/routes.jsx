@@ -55,11 +55,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/user/dashboard",
-    element: (
-      <ProtectedRoute>
-        <UserDashboard />
-      </ProtectedRoute>
-    ),
+    element: <UserDashboard />,
   },
   //Firefighter routes
   {
