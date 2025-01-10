@@ -10,6 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useState } from "react";
+import mainLogo from "../../assets/mainlogo.png";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(true);
@@ -52,7 +54,9 @@ export default function Sidebar() {
       {/* Logo Section */}
       <div className="p-4 h-16 flex items-center justify-center border-b">
         {expanded ? (
-          <span className="font-semibold text-xl">Logo</span>
+          <span className="w-12 h-12">
+            <img src={mainLogo} alt="logo" />
+          </span>
         ) : (
           <span className="font-bold text-xl">L</span>
         )}
@@ -89,24 +93,26 @@ export default function Sidebar() {
 
       {/* User Profile Section */}
       <div className="border-t p-4">
-        <div
-          className={`flex ${
-            expanded ? "items-center" : "justify-center"
-          } gap-3`}
-        >
-          <Avatar className="h-8 w-8">
-            <AvatarImage src="/api/placeholder/32/32" alt="User avatar" />
-            <AvatarFallback>JD</AvatarFallback>
-          </Avatar>
-          {expanded && (
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">John Doe</span>
-              <span className="text-xs text-foreground/60">
-                john@example.com
-              </span>
-            </div>
-          )}
-        </div>
+        <Link to="/police/profile">
+          <div
+            className={`flex ${
+              expanded ? "items-center" : "justify-center"
+            } gap-3`}
+          >
+            <Avatar className="h-8 w-8">
+              <AvatarImage src="/api/placeholder/32/32" alt="User avatar" />
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+            {expanded && (
+              <div className="flex flex-col">
+                <span className="text-sm font-medium">John Doe</span>
+                <span className="text-xs text-foreground/60">
+                  john@example.com
+                </span>
+              </div>
+            )}
+          </div>
+        </Link>
       </div>
     </aside>
   );
