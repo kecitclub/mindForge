@@ -42,7 +42,7 @@ export function Services() {
   ];
 
   return (
-    <section className="bg-black py-16 px-4">
+    <section className="bg-black py-16 px-4" id="services">
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-white mb-4">

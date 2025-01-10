@@ -62,96 +62,88 @@ const EmergencyCalls = () => {
     }
   };
   return (
-    
-      <div className="mx-auto max-w-7xl space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Emergency Calls</h1>
-          <div className="flex gap-4">
-            <Button className="bg-emerald-500 hover:bg-emerald-600">
-              Accept All
-            </Button>
-            <Button className="bg-red-500 hover:bg-red-600">
-              Emergency Mode
-            </Button>
-          </div>
-        </div>
-
-        {/* Emergency Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data.map((call) => (
-            <Card
-              key={call.id}
-              className={`relative overflow-hidden p-6 shadow-lg ${getCardBackground(
-                call.status
-              )}`}
-            >
-              <div className="mb-4 flex items-center justify-between">
-                <span
-                  className={`rounded-full px-3 py-1 text-sm font-medium text-white ${getStatusColor(
-                    call.status
-                  )}`}
-                >
-                  {call.status}
-                </span>
-                <span className="text-sm text-gray-500">{call.timeAgo}</span>
-              </div>
-
-              <div className="mb-6 flex items-start gap-3">
-                <AlertTriangle
-                  className={`h-5 w-5 ${
-                    call.status === "ACTIVE"
-                      ? "text-red-500"
-                      : call.status === "PENDING"
-                      ? "text-yellow-500"
-                      : "text-blue-500"
-                  }`}
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-900">{call.title}</h3>
-                  <p className="text-sm text-gray-600">{call.location}</p>
-                  <p className="text-sm text-gray-500">{call.address}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <Button
-                  className={
-                    call.status === "IN PROGRESS"
-                      ? "flex-1 bg-emerald-500 hover:bg-emerald-600"
-                      : "flex-1 bg-blue-500 hover:bg-blue-600"
-                  }
-                >
-                  {call.status === "IN PROGRESS" ? "View Status" : "Accept"}
-                </Button>
-                <Button
-                  variant="outline"
-                  className="flex-1 border-gray-200 bg-white hover:bg-gray-50"
-                >
-                  Details
-                </Button>
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        {/* Stats */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {stats.map((stat) => (
-            <Card
-              key={stat.label}
-              className="flex items-center justify-between p-6"
-            >
-              <h3 className="text-lg font-medium text-gray-900">
-                {stat.label}
-              </h3>
-              <span className={`text-3xl font-bold ${stat.color}`}>
-                {stat.value}
-              </span>
-            </Card>
-          ))}
+    <div className="mx-auto max-w-7xl space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-gray-900">Emergency Calls</h1>
+        <div className="flex gap-4">
+          <Button className="bg-emerald-500 hover:bg-emerald-600">
+            Accept All
+          </Button>
+          <Button className="bg-red-500 hover:bg-red-600">
+            Emergency Mode
+          </Button>
         </div>
       </div>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {data.map((call) => (
+          <Card
+            key={call.id}
+            className={`relative overflow-hidden p-6 shadow-lg ${getCardBackground(
+              call.status
+            )}`}
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <span
+                className={`rounded-full px-3 py-1 text-sm font-medium text-white ${getStatusColor(
+                  call.status
+                )}`}
+              >
+                {call.status}
+              </span>
+              <span className="text-sm text-gray-500">{call.timeAgo}</span>
+            </div>
+
+            <div className="mb-6 flex items-start gap-3">
+              <AlertTriangle
+                className={`h-5 w-5 ${
+                  call.status === "ACTIVE"
+                    ? "text-red-500"
+                    : call.status === "PENDING"
+                    ? "text-yellow-500"
+                    : "text-blue-500"
+                }`}
+              />
+              <div>
+                <h3 className="font-semibold text-gray-900">{call.title}</h3>
+                <p className="text-sm text-gray-600">{call.location}</p>
+                <p className="text-sm text-gray-500">{call.address}</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <Button
+                className={
+                  call.status === "IN PROGRESS"
+                    ? "flex-1 bg-emerald-500 hover:bg-emerald-600"
+                    : "flex-1 bg-blue-500 hover:bg-blue-600"
+                }
+              >
+                {call.status === "IN PROGRESS" ? "View Status" : "Accept"}
+              </Button>
+              <Button
+                variant="outline"
+                className="flex-1 border-gray-200 bg-white hover:bg-gray-50"
+              >
+                Details
+              </Button>
+            </div>
+          </Card>
+        ))}
+      </div>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {stats.map((stat) => (
+          <Card
+            key={stat.label}
+            className="flex items-center justify-between p-6"
+          >
+            <h3 className="text-lg font-medium text-gray-900">{stat.label}</h3>
+            <span className={`text-3xl font-bold ${stat.color}`}>
+              {stat.value}
+            </span>
+          </Card>
+        ))}
+      </div>
+    </div>
   );
 };
 
