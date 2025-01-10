@@ -11,6 +11,7 @@ const services = [
     buttonText: "Book Ambulance",
     buttonColor: "bg-red-500 hover:bg-red-600",
     iconColor: "text-red-500",
+    href: "book",
   },
   {
     title: "Fire Brigade",
@@ -49,27 +50,12 @@ export default function Call() {
                 </span>
               </div>
               <p className="text-gray-600 mb-6">{service.description}</p>
-              <Button
-                className={`w-full text-white ${service.buttonColor}`}
-                onClick={() => console.log(`${service.title} service called`)}
-              >
-                {service.buttonText}
+              <Button className={`w-full text-white ${service.buttonColor}`}>
+                <a href={`#${service.href}`}>{service.buttonText}</a>
               </Button>
             </Card>
           ))}
         </div>
-
-        {/* <div className="flex flex-col items-center space-y-4">
-          <Button
-            className="px-8 py-6 text-xl font-bold text-white bg-red-600 hover:bg-red-700 rounded-full shadow-lg transform transition-transform hover:scale-105"
-            onClick={() => console.log("SOS Emergency called")}
-          >
-            SOS EMERGENCY
-          </Button>
-          <p className="text-gray-600 text-center text-sm">
-            Click for immediate response from all emergency services
-          </p>
-        </div> */}
       </div>
     </section>
   );

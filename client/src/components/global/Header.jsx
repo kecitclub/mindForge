@@ -54,7 +54,7 @@ export function Header() {
   };
 
   return (
-    <nav className="flex items-center justify-between px-6 py-4 ">
+    <nav className=" sticky top-0 z-10 bg-white flex items-center justify-between px-6 py-2 ">
       <Link
         to="/"
         className="flex items-center gap-2 hover:scale-110 cursor-pointer"

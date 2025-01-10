@@ -7,7 +7,7 @@ import { Police } from "../models/police.model.js"
 import { NormalUser } from "../models/normalUser.model.js"
 
 const register = catchAsync(async (req, res, next) => {
-    const { fullName, email, password, phoneNumber, role, vehicleNumber, hospitalAddress, latitude, longitude, specialization, dob } = req.body
+    const { fullName, email, password, phoneNumber, role, vehicleNumber, hospitalAddress, lat, lng, specialization, dob } = req.body
 
     const existingUser = await User.findOne({ email })
 
@@ -51,6 +51,10 @@ const register = catchAsync(async (req, res, next) => {
             password,
             role,
             phoneNumber,
+            policeStationLocation: {
+                lat,
+                lng
+            }
         });
     }
     else {
@@ -119,10 +123,10 @@ const logout = catchAsync(async (req, res, next) => {
 
 const ambulanceRequest = catchAsync(async (req, res, next) => {
     const patientId = req.user._id
-    const { latitude, longitude } = req.body;
+    const { lat, lng } = req.body;
 
-    if (!patientId || !latitude || !longitude) {
-        throw new AppError('Missing required fields: patientId, latitude, or longitude.', 400);
+    if (!patientId || !lat || !lng) {
+        throw new AppError('Missing required fields: patientId, lat, or lng.', 400);
     }
 
     try {
@@ -131,14 +135,14 @@ const ambulanceRequest = catchAsync(async (req, res, next) => {
             throw new AppError('User not found!', 404);
         }
 
-        patient.location = { latitude, longitude };
+        patient.location = { lat, lng };
         await patient.save();
 
         const radius = 10; // Radius in kilometers
         const nearbyAmbulances = await Ambulance.find({
             liveLocation: {
                 $geoWithin: {
-                    $centerSphere: [[longitude, latitude], radius / 6378.1], // earth's radius in km
+                    $centerSphere: [[lng, lat], radius / 6378.1], // earth's radius in km
                 },
             },
         });
@@ -168,7 +172,27 @@ const getUser = catchAsync(async (req, res, next) => {
     })
 })
 
+const updateUserLocation = async (lat, lng) => {
+    const { userId } = req.user._id;
+
+    if (!lat || !lng) {
+        throw new AppError("lat and lng are required", 400);
+    }
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            throw new AppError("User not found", 404);
+        }
+
+        user.liveLocation = { lat, lng };
+        await user.save();
+    } catch (err) {
+        console.error(err);
+    }
+};
 
 export {
-    register, login, logout, ambulanceRequest, getUser
+    register, login, logout, ambulanceRequest, getUser, updateUserLocation
 }

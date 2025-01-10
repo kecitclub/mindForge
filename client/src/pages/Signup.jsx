@@ -1,22 +1,22 @@
-import { Heart } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Link, useNavigate } from "react-router-dom"
-import sideLogo from "../assets/sidelogo.png"
-import { useState } from "react"
-import axios from "axios"
-import { useUserStore } from "@/store/useUserStore"
-import LocationPicker from "@/components/map/SignUpLocationPicker"
-import { useLocationStore } from "@/store/useLocationStore"
+import { Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Link, useNavigate } from "react-router-dom";
+import sideLogo from "../assets/sidelogo.png";
+import { useState } from "react";
+import axios from "axios";
+import { useUserStore } from "@/store/useUserStore";
+import LocationPicker from "@/components/map/SignUpLocationPicker";
+import { useLocationStore } from "@/store/useLocationStore";
 
 export function Signup() {
   const navigate = useNavigate();
 
-  const { role } = useUserStore()
-  const { policePosition } = useLocationStore()
+  const { role } = useUserStore();
+  const { policePosition } = useLocationStore();
 
   const [formInputs, setFormInputs] = useState({
     fullName: "",
@@ -35,8 +35,8 @@ export function Signup() {
     const data = {
       ...formInputs,
       role: role === "User" ? "NormalUser" : role,
-      ...policePosition
-    }
+      ...policePosition,
+    };
 
     try {
       const response = await axios.post(
@@ -61,7 +61,7 @@ export function Signup() {
   return (
     <form
       onSubmit={formSubmitHandler}
-      className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-4"
+      className="min-h-screen bg-gradient-to-b from-gray-50 to-white lg:flex items-center justify-center p-4 "
     >
       <Card className="w-full max-w-lg shadow-lg">
         <CardHeader className="space-y-3 text-center">
@@ -173,13 +173,8 @@ export function Signup() {
           </div>
         </CardContent>
       </Card>
-      
-      {
-        role === "FireBrigade" && <LocationPicker />
-      }
-      {
-        role === "Police" && <LocationPicker />
-      }
+      {role === "FireBrigade" && <LocationPicker />}
+      {role === "Police" && <LocationPicker />}
     </form>
   );
 }

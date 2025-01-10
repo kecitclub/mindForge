@@ -31,7 +31,6 @@ export default function Sidebar() {
       className={`
         hidden
         md:flex flex-col
-        h-screen
         bg-background
         border-r
         transition-all
@@ -40,7 +39,6 @@ export default function Sidebar() {
         ${expanded ? "w-60" : "w-16"}
       `}
     >
-      {/* Toggle Button */}
       <Button
         variant="ghost"
         size="icon"
@@ -54,14 +52,12 @@ export default function Sidebar() {
         )}
       </Button>
 
-      {/* Logo Section */}
       <div className="p-4 h-16 flex items-center justify-center border-b">
         <span className="w-12 h-12">
           <img src={mainLogo} alt="logo" />
         </span>
       </div>
 
-      {/* Navigation Items */}
       <nav className="flex-1 p-2 space-y-1">
         {navItems.map((item) => (
           <a
@@ -90,7 +86,6 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* User Profile Section */}
       <div className="border-t p-4">
         <Link to="/police/profile">
           <div
