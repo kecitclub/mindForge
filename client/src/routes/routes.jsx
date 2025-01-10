@@ -11,6 +11,7 @@ import PoliceDashboard from "@/pages/police/PoliceDashboard";
 import UserDashboard from "@/pages/user/UserDashboard";
 import ProtectedRoute from "@/utils/ProtectedRoute";
 import FireDashboard from "@/pages/firebrigade/FireDashboard";
+import AmbulanceDashboard from "@/pages/ambulance/AmbulanceDashboard";
 
 const router = createBrowserRouter([
   {
@@ -39,31 +40,43 @@ const router = createBrowserRouter([
   {
     path: "/police/dashboard",
     element: (
-      // <ProtectedRoute>
-      <PoliceDashboard />
+      <ProtectedRoute>
+        <PoliceDashboard />
+      </ProtectedRoute>
     ),
-    //  </ProtectedRoute>
   },
   {
     path: "/police/profile",
     element: (
-      // <ProtectedRoute>
-      <PoliceProfile />
-      //  </ProtectedRoute>
+      <ProtectedRoute>
+        <PoliceProfile />
+      </ProtectedRoute>
     ),
   },
   {
     path: "/user/dashboard",
     element: (
-      // <ProtectedRoute>
-      <UserDashboard />
-      // </ProtectedRoute>
+      <ProtectedRoute>
+        <UserDashboard />
+      </ProtectedRoute>
     ),
   },
   //Firefighter routes
   {
     path: "/fire/dashboard",
-    element: <FireDashboard />,
+    element: (
+      <ProtectedRoute>
+        <FireDashboard />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/ambulance/dashboard",
+    element: (
+      <ProtectedRoute>
+        <AmbulanceDashboard />
+      </ProtectedRoute>
+    ),
   },
 ]);
 
