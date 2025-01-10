@@ -51,6 +51,10 @@ const register = catchAsync(async (req, res, next) => {
             password,
             role,
             phoneNumber,
+            policeStationLocation: {
+                latitude,
+                longitude
+            }
         });
     }
     else {
@@ -168,7 +172,27 @@ const getUser = catchAsync(async (req, res, next) => {
     })
 })
 
+const updateUserLocation = async (latitude, longitude) => {
+    const { userId } = req.user._id;
+
+    if (!latitude || !longitude) {
+        throw new AppError("Latitude and Longitude are required", 400);
+    }
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            throw new AppError("User not found", 404);
+        }
+
+        user.liveLocation = { latitude, longitude };
+        await user.save();
+    } catch (err) {
+        console.error(err);
+    }
+};
 
 export {
-    register, login, logout, ambulanceRequest, getUser
+    register, login, logout, ambulanceRequest, getUser, updateUserLocation
 }
