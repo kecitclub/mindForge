@@ -14,10 +14,10 @@ function LocationMarker({ position, setPosition, myIcon }) {
     useEffect(() => {
 
         if (position ) return;
-        map.locate({ setView: true, maxZoom: 200 }).on("locationfound", function (e) {
+        map.locate({ setView: true, maxZoom: 17 }).on("locationfound", function (e) {
             const { lat, lng } = e.latlng; // Use the location found by Leaflet
             setPosition({  lat,  lng }); // Update the position state with the found location
-            map.flyTo([lat, lng], 200); // Automatically zoom in to the found location
+            map.flyTo([lat, lng], 17); // Automatically zoom in to the found location
         }).on("locationerror", function (e) {
             setError(e.message);
         });
@@ -40,7 +40,7 @@ const MapLocation = ({ myLocation, setMyLocation, locationError, myIcon, otherIc
                 <p className="text-red-500">{locationError}</p>
             )}
             <div className="w-full h-[450px]">
-                <MapContainer center={myLocation || [0, 0]} zoom={myLocation ? 13 : 2} style={{ height: '100%', width: '100%' }}>
+                <MapContainer center={myLocation || [0, 0]} zoom={myLocation ? 10 : 2} style={{ height: '100%', width: '100%' }}>
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

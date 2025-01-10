@@ -7,5 +7,5 @@ export const useLocationStore = create((set) => ({
     userLocationUser: {},
     setPolicePosition: (policePosition) => set({ policePosition }),
     setUserLocationStore: (userLocation) => set({ userLocation }),
-    setUserLocationUser: (userLocation) => set({ userLocation }),
+    setUserLocationUser: (userLocationUser) => set({ userLocationUser }),
 }));

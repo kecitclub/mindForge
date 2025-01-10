@@ -55,7 +55,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/user/dashboard",
-    element: <UserDashboard />,
+    element: <ProtectedRoute>
+      <UserDashboard />,
+    </ProtectedRoute>
   },
   //Firefighter routes
   {
@@ -68,11 +70,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/ambulance/dashboard",
-    element: (
-      <ProtectedRoute>
-        <AmbulanceDashboard />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>
+      <AmbulanceDashboard />
+    </ProtectedRoute>,
   },
 ]);
 
