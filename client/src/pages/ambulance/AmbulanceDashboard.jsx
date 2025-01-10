@@ -1,6 +1,5 @@
 import Sidebar from "@/components/global/Sidebar";
-import EmergencyCalls from "@/components/police/EmergencyCalls";
-import PoliceMap from "@/components/police/PoliceMap";
+import PatientRequest from "@/components/ambulance/UserRequest";
 
 const AmbulanceDashboard = () => {
   return (
@@ -8,8 +7,7 @@ const AmbulanceDashboard = () => {
       <div className="flex">
         <Sidebar />
         <div className="p-6 w-full">
-          <EmergencyCalls />
-          <PoliceMap />
+          <PatientRequest />
         </div>
       </div>
     </>
