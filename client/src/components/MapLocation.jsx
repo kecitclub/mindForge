@@ -13,7 +13,7 @@ function LocationMarker({ position, setPosition, myIcon }) {
 
     useEffect(() => {
 
-        if (position) return;
+        if (position ) return;
         map.locate({ setView: true, maxZoom: 200 }).on("locationfound", function (e) {
             const { lat, lng } = e.latlng; // Use the location found by Leaflet
             setPosition({ latitude: lat, longitude: lng }); // Update the position state with the found location
@@ -46,8 +46,8 @@ const MapLocation = ({ myLocation, setMyLocation, locationError, myIcon, otherIc
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                     <LocationMarker position={myLocation} setPosition={setMyLocation} myIcon={myIcon} />
-                    {myLocation && otherLocations.map((location, index) => (
-                        <Marker key={index} position={[location.lat, location.lng]} icon={otherIcon}>
+                    {myLocation && otherLocations.length > 0 && otherLocations.map((location, index) => (
+                        <Marker key={index} position={[location?.lat, location?.lng]} icon={otherIcon}>
                             <Popup>
                                 Ambulance {index + 1}<br />
                                 Lat: {location.lat.toFixed(6)}<br />

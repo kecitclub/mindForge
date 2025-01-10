@@ -2,6 +2,7 @@ import { MapPin, Share, Copy, Ambulance, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import MapUser from "./MapUser";
 
 export default function LocationSection() {
   return (
@@ -15,10 +16,9 @@ export default function LocationSection() {
               Refresh Map
             </Button>
           </div>
-          <div className="flex min-h-[600px] items-center justify-center bg-muted/10">
-            <div className="flex flex-col items-center gap-2 text-muted-foreground">
-              <MapPin className="h-12 w-12" />
-              <p>Map Loading...</p>
+          <div className="flex items-center justify-center bg-muted/10">
+            <div className="bg-gray-50 rounded-lg  flex flex-col  justify-start w-full ">
+              <MapUser />
             </div>
           </div>
         </div>
