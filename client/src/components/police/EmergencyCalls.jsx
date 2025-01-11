@@ -40,7 +40,7 @@ const stats = [
 ]
 
 const EmergencyCalls = () => {
-  const { setUser } = useUserStore()
+  const { user, setUser } = useUserStore()
   const navigate = useNavigate()
 
   const handleLogout = async () => {
@@ -91,10 +91,13 @@ const EmergencyCalls = () => {
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex justify-between items-center px-8 pt-8 pb-6 bg-slate-200">
-        <h1 className="text-2xl font-semibold">Welcome, fullName</h1>
+        <h1 className="text-2xl font-semibold">Welcome, {user?.fullName}</h1>
         <div className="flex items-center gap-4">
-          <Bell className="h-5 w-5 text-gray-500" />
-          <LogOut onClick={handleLogout} className="h-5 w-5 text-gray-500" />
+          <Bell className="h-5 w-5 text-gray-500 cursor-pointer" />
+          <LogOut
+            onClick={handleLogout}
+            className="h-5 w-5 text-gray-500 cursor-pointer"
+          />
         </div>
       </div>
       <div className="flex items-center justify-between">
