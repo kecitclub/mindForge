@@ -4,21 +4,23 @@ import {
   XCircle,
   ChevronLeft,
   ChevronRight,
+  Bell,
+  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function UserRequest() {
   return (
-    <div className="container mx-auto  space-y-6">
-      {/* <div className="flex justify-between items-center px-8 pt-8 pb-6 bg-slate-200">
-        <h1 className="text-2xl font-semibold">Welcome, {user?.fullName}</h1>
+    <div className="container space-y-6">
+      <div className="flex justify-between items-center px-8 pt-8 pb-6 bg-slate-200">
+        <h1 className="text-2xl font-semibold">Welcome, fullName</h1>
         <div className="flex items-center gap-4">
           <Bell className="h-5 w-5 text-gray-500" />
           <LogOut className="h-5 w-5 text-gray-500" />
         </div>
-      </div> */}
-      <div className="px-24">
+      </div>
+      <div className="">
         <p className="text-2xl pb-[20px] font-semibold text-gray-900">
           View and manage incoming patient requests
         </p>
@@ -73,18 +75,13 @@ export default function UserRequest() {
                       EMERGENCY
                     </span>
                   </div>
-                  <div className="space-x-2">
-                    <Button variant="default" disable>
-                      decision
-                    </Button>
-                    <>
-                      <Button variant="default">Accept</Button>
-                      <Button variant="outline">Decline</Button>
-                    </>
+                  <div className=" space-x-2">
+                    <Button variant="default">Accept</Button>
+                    <Button variant="outline">Decline</Button>
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">patient hospital</h3>
-                <h3 className="text-lg font-semibold mb-2">patient disease</h3>
+                <h3 className="text-base  mb-2">patient hospital</h3>
+                <h3 className="text-base mb-2">patient disease</h3>
                 <h4>phoneNumber</h4>
               </CardContent>
             </Card>

@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Bell, LogOut } from "lucide-react";
 
 const emergencyCards = [
   {
