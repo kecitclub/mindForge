@@ -42,34 +42,27 @@ const emergencyCards = [
   },
 ];
 
-
 export default function EmergencyRequests() {
-
-
-
   const { user } = useUserStore();
   const [decision, setDecision] = useState("");
-  const { socket, setUserDetail, userDetail,setFireDecision } = useSocket();
-
+  const { socket, setUserDetail, userDetail, setFireDecision } = useSocket();
 
   useEffect(() => {
     if (socket) {
       socket.on("bookFire", (data) => {
-        console.log("book call from patient: ", data)
+        console.log("book call from patient: ", data);
         setUserDetail(data);
-      })
+      });
     }
-  }, [socket])
-
-
+  }, [socket]);
 
   const handleFireRequest = (decision) => {
     if (socket) {
-      setDecision(decision)
-      setFireDecision(decision)
-      socket.emit("firedecision", decision)
+      setDecision(decision);
+      setFireDecision(decision);
+      socket.emit("firedecision", decision);
     }
-  }
+  };
   return (
     <div className="bg-gray-100 p-8">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -117,8 +110,7 @@ export default function EmergencyRequests() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {
-                  userDetail &&
+                {userDetail && (
                   <TableRow>
                     <TableCell className="font-medium">
                       {userDetail.user.fullName}
@@ -129,20 +121,31 @@ export default function EmergencyRequests() {
                     <TableCell>
                       <div className="space-x-2">
                         <>
-                          {
-                            decision ?
-                              <Button variant="default" disable >{decision}</Button>
-                              :
-                              <>
-                                <Button variant="default" onClick={() => handleFireRequest("Accepted")}>Accept</Button>
-                                <Button variant="outline" onClick={() => handleFireRequest("Declined")}>Decline</Button>
-                              </>
-                          }
+                          {decision ? (
+                            <Button variant="default" disable>
+                              {decision}
+                            </Button>
+                          ) : (
+                            <>
+                              <Button
+                                variant="default"
+                                onClick={() => handleFireRequest("Accepted")}
+                              >
+                                Accept
+                              </Button>
+                              <Button
+                                variant="outline"
+                                onClick={() => handleFireRequest("Declined")}
+                              >
+                                Decline
+                              </Button>
+                            </>
+                          )}
                         </>
                       </div>
                     </TableCell>
                   </TableRow>
-                }
+                )}
               </TableBody>
             </Table>
           </div>

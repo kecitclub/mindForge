@@ -1,4 +1,4 @@
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Bell, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -63,6 +63,13 @@ const EmergencyCalls = () => {
   };
   return (
     <div className="mx-auto max-w-7xl space-y-6">
+      <div className="flex justify-between items-center px-8 pt-8 pb-6 bg-slate-200">
+        <h1 className="text-2xl font-semibold">Welcome, fullName</h1>
+        <div className="flex items-center gap-4">
+          <Bell className="h-5 w-5 text-gray-500" />
+          <LogOut className="h-5 w-5 text-gray-500" />
+        </div>
+      </div>
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Emergency Calls</h1>
         <div className="flex gap-4">
