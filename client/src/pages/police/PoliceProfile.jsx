@@ -1,17 +1,19 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { Pencil } from "lucide-react";
+} from "@/components/ui/select"
+import { Switch } from "@/components/ui/switch"
+import { useUserStore } from "@/store/useUserStore"
+import { Pencil } from "lucide-react"
 export function PoliceProfile() {
+  const { user } = useUserStore()
   return (
     <div className="container mx-auto p-4 space-y-6">
       <div className="flex justify-between items-center">
@@ -43,7 +45,9 @@ export function PoliceProfile() {
                 </Button>
               </div>
               <div className="text-center">
-                <h2 className="font-semibold text-lg">Officer Sarah Wilson</h2>
+                <h2 className="font-semibold text-lg">
+                  Officer {user?.fullName}
+                </h2>
                 <p className="text-sm text-muted-foreground">Badge #12345</p>
               </div>
               <div className="w-full space-y-4">
@@ -62,19 +66,11 @@ export function PoliceProfile() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="department">Department</Label>
-                  <Input
-                    id="department"
-                    value="Criminal Investigation"
-                    
-                  />
+                  <Input id="department" value="Criminal Investigation" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="shift">Shift</Label>
-                  <Input
-                    id="shift"
-                    value="Morning Shift (6AM - 2PM)"
-                    
-                  />
+                  <Input id="shift" value="Morning Shift (6AM - 2PM)" />
                 </div>
               </div>
             </div>
@@ -176,5 +172,5 @@ export function PoliceProfile() {
         </div>
       </div>
     </div>
-  );
+  )
 }

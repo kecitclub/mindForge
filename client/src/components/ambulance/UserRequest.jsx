@@ -6,36 +6,56 @@ import {
   ChevronRight,
   Bell,
   LogOut,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { useUserStore } from "@/store/useUserStore";
-import MapAmbulance from "./MapAmbulance";
-import { useEffect, useState } from "react";
-import { useSocket } from "@/store/useSocket";
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { useUserStore } from "@/store/useUserStore"
+import MapAmbulance from "./MapAmbulance"
+import { useEffect, useState } from "react"
+import { useSocket } from "@/store/useSocket"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import { toast } from "sonner"
 
 export default function UserRequest() {
-
-
-  const { user } = useUserStore();
-  const [decision, setDecision] = useState("");
-  const { socket, setUserDetail, userDetail} = useSocket();
-
+  const { user, setUser } = useUserStore()
+  const navigate = useNavigate()
+  const [decision, setDecision] = useState("")
+  const { socket, setUserDetail, userDetail } = useSocket()
 
   useEffect(() => {
     if (socket) {
-      socket.on("bookAmbulance", (data) => {
+      socket.on("bookAmbulance", data => {
         console.log("book call from patient: ", data)
-        setUserDetail(data);
-
+        setUserDetail(data)
       })
     }
   }, [socket])
 
-  const handleRequest = (decision) => {
+  const handleRequest = decision => {
     if (socket) {
       setDecision(decision)
       socket.emit("decision", decision)
+    }
+  }
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,
+        {
+          withCredentials: true,
+        }
+      )
+
+      if (response.status === 200) {
+        setUser(null)
+        navigate("/")
+        toast.success("Logged out successfully")
+      }
+    } catch (e) {
+      console.error(e)
+      toast.error("An error occurred. Please try again.")
     }
   }
 
@@ -44,8 +64,11 @@ export default function UserRequest() {
       <div className="flex justify-between items-center px-8 pt-8 pb-6 bg-slate-200">
         <h1 className="text-2xl font-semibold">Welcome, {user?.fullName}</h1>
         <div className="flex items-center gap-4">
-          <Bell className="h-5 w-5 text-gray-500" />
-          <LogOut className="h-5 w-5 text-gray-500" />
+          <Bell className="h-5 w-5 text-gray-500 cursor-pointer" />
+          <LogOut
+            onClick={handleLogout}
+            className="h-5 w-5 text-gray-500 cursor-pointer"
+          />
         </div>
       </div>
       <div className="px-24">
@@ -95,9 +118,7 @@ export default function UserRequest() {
             <h1 className=" text-2xl font-bold">Patient requests</h1>
           </div>
           <div className="space-y-4">
-
-            {
-              userDetail &&
+            {userDetail && (
               <Card className="border-red-100 bg-red-50 mb-2 animate-pulse">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
@@ -108,30 +129,38 @@ export default function UserRequest() {
                     </div>
                     <div className="space-x-2">
                       <>
-                        {
-                          decision ?
-                            <Button variant="default" disable >{decision}</Button>
-                            :
-                            <>
-                              <Button variant="default" onClick={() => handleRequest("Accepted")}>Accept</Button>
-                              <Button variant="outline" onClick={() => handleRequest("Declined")}>Decline</Button>
-                            </>
-                        }
+                        {decision ? (
+                          <Button variant="default" disable>
+                            {decision}
+                          </Button>
+                        ) : (
+                          <>
+                            <Button
+                              variant="default"
+                              onClick={() => handleRequest("Accepted")}
+                            >
+                              Accept
+                            </Button>
+                            <Button
+                              variant="outline"
+                              onClick={() => handleRequest("Declined")}
+                            >
+                              Decline
+                            </Button>
+                          </>
+                        )}
                       </>
                     </div>
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{
-                    userDetail?.user.fullName
-                  }</h3>
-                  <h4>{
-                    userDetail?.user.phoneNumber
-                  }</h4>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {userDetail?.user.fullName}
+                  </h3>
+                  <h4>{userDetail?.user.phoneNumber}</h4>
                 </CardContent>
               </Card>
-            }
+            )}
 
-            {
-              !userDetail &&
+            {!userDetail && (
               <Card className="border-red-100 bg-red-50">
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold mb-2">
@@ -139,7 +168,7 @@ export default function UserRequest() {
                   </h3>
                 </CardContent>
               </Card>
-            }
+            )}
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-500">Showing 1 to 2 of 8 results</p>
@@ -165,5 +194,5 @@ export default function UserRequest() {
         </div>
       </div>
     </div>
-  );
+  )
 }
