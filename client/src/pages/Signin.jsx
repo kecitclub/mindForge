@@ -9,6 +9,7 @@ import sideLogo from "../assets/sidelogo.png"
 import { useState } from "react"
 import axios from "axios"
 import { useUserStore } from "@/store/useUserStore"
+import { toast } from "react-toastify"
 
 export function Signin() {
   const navigate = useNavigate()
@@ -39,8 +40,9 @@ export function Signin() {
       )
 
       if (response.status === 200) {
-        console.log(response.data.user);
+        console.log(response.data.user)
         setUser(response.data.user)
+        toast.success("Login successful")
 
         if (response.data.user.role === "Police") {
           navigate("/police/dashboard")
