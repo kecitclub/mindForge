@@ -4,6 +4,7 @@ import MapUser from "./MapUser";
 import { useEffect, useState } from "react";
 import { useSocket } from "@/store/useSocket";
 import { useUserStore } from "@/store/useUserStore";
+import { toast } from "sonner";
 import { useLocationStore } from "@/store/useLocationStore";
 
 export default function LocationSection() {
@@ -143,7 +144,10 @@ export default function LocationSection() {
                   </div>
                 </div>
               </div>
-              <Button onClick={() => bookNow(ambulance.vehicleNumber)}>
+              <Button
+                id="bookAmbulance"
+                onClick={() => bookNow(ambulance.vehicleNumber)}
+              >
                 {isBookedClicked}
               </Button>
             </div>
@@ -152,8 +156,9 @@ export default function LocationSection() {
         {fireBrigadeList.length > 0 &&
           fireBrigadeList.map((items, index) => (
             <div
-              className="bg-red-400 p-4 rounded-lg border flex justify-between items-center"
               key={index}
+              className="bg-red-400 p-4 rounded-lg border flex justify-between items-center"
+              
             >
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
@@ -166,7 +171,7 @@ export default function LocationSection() {
                   <div className="text-sm text-white">{items.fullName}</div>
                 </div>
               </div>
-              <Button onClick={() => bookFireNow(items.vehicleNumber)}>
+              <Button id="bookFire" onClick={() => bookFireNow(items.vehicleNumber)}>
                 {isFireBrigadeBookedClicked}
               </Button>
             </div>
