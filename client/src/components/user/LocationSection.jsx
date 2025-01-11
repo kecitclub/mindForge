@@ -128,8 +128,8 @@ export default function LocationSection() {
         {ambulanceList.length > 0 &&
           ambulanceList.map((ambulance, index) => (
             <div
-              key={index}
               className="bg-white p-4 rounded-lg border flex justify-between items-center"
+              key={index}
             >
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
@@ -158,6 +158,7 @@ export default function LocationSection() {
             <div
               key={index}
               className="bg-red-400 p-4 rounded-lg border flex justify-between items-center"
+              
             >
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">

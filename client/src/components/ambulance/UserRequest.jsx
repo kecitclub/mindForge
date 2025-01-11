@@ -15,29 +15,25 @@ import { useEffect, useState } from "react";
 import { useSocket } from "@/store/useSocket";
 
 export default function UserRequest() {
-
-
   const { user } = useUserStore();
   const [decision, setDecision] = useState("");
-  const { socket, setUserDetail, userDetail} = useSocket();
-
+  const { socket, setUserDetail, userDetail } = useSocket();
 
   useEffect(() => {
     if (socket) {
       socket.on("bookAmbulance", (data) => {
-        console.log("book call from patient: ", data)
+        console.log("book call from patient: ", data);
         setUserDetail(data);
-
-      })
+      });
     }
-  }, [socket])
+  }, [socket]);
 
   const handleRequest = (decision) => {
     if (socket) {
-      setDecision(decision)
-      socket.emit("decision", decision)
+      setDecision(decision);
+      socket.emit("decision", decision);
     }
-  }
+  };
 
   return (
     <div className="container mx-auto  space-y-6">
@@ -95,9 +91,7 @@ export default function UserRequest() {
             <h1 className=" text-2xl font-bold">Patient requests</h1>
           </div>
           <div className="space-y-4">
-
-            {
-              userDetail &&
+            {userDetail && (
               <Card className="border-red-100 bg-red-50 mb-2 animate-pulse">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
@@ -108,30 +102,38 @@ export default function UserRequest() {
                     </div>
                     <div className="space-x-2">
                       <>
-                        {
-                          decision ?
-                            <Button variant="default" disable >{decision}</Button>
-                            :
-                            <>
-                              <Button variant="default" onClick={() => handleRequest("Accepted")}>Accept</Button>
-                              <Button variant="outline" onClick={() => handleRequest("Declined")}>Decline</Button>
-                            </>
-                        }
+                        {decision ? (
+                          <Button variant="default" disable>
+                            {decision}
+                          </Button>
+                        ) : (
+                          <>
+                            <Button
+                              variant="default"
+                              onClick={() => handleRequest("Accepted")}
+                            >
+                              Accept
+                            </Button>
+                            <Button
+                              variant="outline"
+                              onClick={() => handleRequest("Declined")}
+                            >
+                              Decline
+                            </Button>
+                          </>
+                        )}
                       </>
                     </div>
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{
-                    userDetail?.user.fullName
-                  }</h3>
-                  <h4>{
-                    userDetail?.user.phoneNumber
-                  }</h4>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {userDetail?.user.fullName}
+                  </h3>
+                  <h4>{userDetail?.user.phoneNumber}</h4>
                 </CardContent>
               </Card>
-            }
+            )}
 
-            {
-              !userDetail &&
+            {!userDetail && (
               <Card className="border-red-100 bg-red-50">
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold mb-2">
@@ -139,7 +141,7 @@ export default function UserRequest() {
                   </h3>
                 </CardContent>
               </Card>
-            }
+            )}
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-500">Showing 1 to 2 of 8 results</p>

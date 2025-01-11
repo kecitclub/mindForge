@@ -9,7 +9,7 @@ const PoliceDashboard = () => {
         <Sidebar />
         <div className="p-6 w-full">
           <EmergencyCalls />
-          <PoliceMap/>
+          <PoliceMap />
         </div>
       </div>
     </>
