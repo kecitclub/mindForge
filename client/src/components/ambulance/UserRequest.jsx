@@ -18,8 +18,9 @@ export default function UserRequest() {
 
 
   const { user } = useUserStore();
-  const { socket } = useSocket();
-  const [userDetail, setUserDetail] = useState(null);
+  const [decision, setDecision] = useState("");
+  const { socket, setUserDetail, userDetail} = useSocket();
+
 
   useEffect(() => {
     if (socket) {
@@ -30,6 +31,13 @@ export default function UserRequest() {
       })
     }
   }, [socket])
+
+  const handleRequest = (decision) => {
+    if (socket) {
+      setDecision(decision)
+      socket.emit("decision", decision)
+    }
+  }
 
   return (
     <div className="container mx-auto  space-y-6">
@@ -100,8 +108,15 @@ export default function UserRequest() {
                     </div>
                     <div className="space-x-2">
                       <>
-                        <Button variant="default">Accept</Button>
-                        <Button variant="outline">Decline</Button>
+                        {
+                          decision ?
+                            <Button variant="default" disable >{decision}</Button>
+                            :
+                            <>
+                              <Button variant="default" onClick={() => handleRequest("Accepted")}>Accept</Button>
+                              <Button variant="outline" onClick={() => handleRequest("Declined")}>Decline</Button>
+                            </>
+                        }
                       </>
                     </div>
                   </div>

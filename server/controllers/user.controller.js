@@ -17,13 +17,26 @@ const register = catchAsync(async (req, res, next) => {
 
     let newUser
 
+
     if (role === 'FireBrigade') {
+        console.log("FireBrigade: ", fullName,
+            email,
+            password,
+            role,
+            phoneNumber,
+            vehicleNumber, lat,
+            lng)
         newUser = await FireBrigade.create({
             fullName,
             email,
             password,
             role,
             phoneNumber,
+            vehicleNumber,
+            liveLocation: {
+                lat,
+                lng
+            }
         });
     } else if (role === 'Ambulance') {
         newUser = await Ambulance.create({
@@ -76,7 +89,9 @@ const login = catchAsync(async (req, res, next) => {
         return next(new AppError("Please provide email and password", 400))
     }
 
-    const user = await User.findOne({ email }).select("+password")
+    const user = await User.findOne({ email }).select("+password");
+
+    console.log("User: ", user)
 
     if (!user || !(await user.isPasswordCorrect(password))) {
         return next(new AppError("Incorrect email or password", 401))

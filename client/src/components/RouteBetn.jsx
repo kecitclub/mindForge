@@ -21,6 +21,7 @@ const createRoutineMachineLayer = ({ my, other }) => {
             return null;
         },
     });
+console.log(instance);
 
     return instance;
 };

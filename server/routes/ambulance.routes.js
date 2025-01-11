@@ -1,9 +1,9 @@
-import express from "express"
-import { acceptRequest } from "../controllers/ambulance.controller.js"
-import isAuthenticated from "../middlewares/auth.middleware.js"
+import express from "express";
+import { acceptRequest } from "../controllers/ambulance.controller.js";
+import isAuthenticated from "../middlewares/auth.middleware.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/accept-request", isAuthenticated, acceptRequest)
+router.post("/accept-request", isAuthenticated, acceptRequest);
 
-export default router
+export default router;
