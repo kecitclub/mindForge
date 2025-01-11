@@ -13,7 +13,7 @@ import { toast } from "sonner"
 
 export function Signin() {
   const navigate = useNavigate()
-  const { setUser } = useUserStore()
+  const { user, setUser } = useUserStore()
 
   const [formInputs, setFormInputs] = useState({
     email: "",
@@ -42,10 +42,9 @@ export function Signin() {
       if (response.status === 200) {
         console.log(response.data.user)
         setUser(response.data.user)
-        toast.success("Welcome to Emergenix")
+        toast.success(`Welcome ${user.fullName}!`)
 
         if (response.data.user.role === "Police") {
-          // toast.success("Login successful")
           navigate("/police/dashboard")
         } else if (response.data.user.role === "NormalUser") {
           navigate("/user/dashboard")
@@ -57,6 +56,7 @@ export function Signin() {
       }
     } catch (e) {
       console.error(e)
+      toast.error("An error occurred. Please try again.")
     }
   }
 
