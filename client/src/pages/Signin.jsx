@@ -44,6 +44,10 @@ export function Signin() {
 
         if (response.data.user.role === "Police") {
           navigate("/police/dashboard")
+        } else if (response.data.user.role === "NormalUser") {
+          navigate("/user/dashboard")
+        } else if (response.data.user.role === "Ambulance") {
+          navigate("/ambulance/dashboard")
         }
       }
     } catch (e) {

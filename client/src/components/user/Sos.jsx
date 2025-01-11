@@ -146,7 +146,7 @@ export default function EmergencyInterface() {
       console.log(`Heard: "${transcript}"`);
 
       if (transcript === "emergency") {
-        console.log("SOS Message Sent to Ambulance");
+        document.getElementById("bookAmbulance").click();
         console.log("SOS Message Sent to Fire Brigade");
         console.log("SOS Message Sent to Police");
       } else {
