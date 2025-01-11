@@ -8,7 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Bell, LogOut } from "lucide-react";
+import { useSocket } from "@/store/useSocket";
+import { useUserStore } from "@/store/useUserStore";
+import { useEffect, useState } from "react";
 
 const emergencyCards = [
   {
@@ -40,26 +42,27 @@ const emergencyCards = [
   },
 ];
 
-const emergencyRequests = [
-  {
-    location: "123 Main St, Downtown",
-    type: "Building Fire",
-    severity: { label: "High", color: "bg-red-100 text-red-700" },
-    time: "2 mins ago",
-    status: { label: "Pending", color: "bg-yellow-100 text-yellow-700" },
-    action: { label: "Respond", variant: "destructive" },
-  },
-  {
-    location: "456 Oak Ave, Westside",
-    type: "Gas Leak",
-    severity: { label: "Medium", color: "bg-orange-100 text-orange-700" },
-    time: "5 mins ago",
-    status: { label: "Responding", color: "bg-green-100 text-green-700" },
-    action: { label: "View Details", variant: "secondary" },
-  },
-];
-
 export default function EmergencyRequests() {
+  const { user } = useUserStore();
+  const [decision, setDecision] = useState("");
+  const { socket, setUserDetail, userDetail, setFireDecision } = useSocket();
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("bookFire", (data) => {
+        console.log("book call from patient: ", data);
+        setUserDetail(data);
+      });
+    }
+  }, [socket]);
+
+  const handleFireRequest = (decision) => {
+    if (socket) {
+      setDecision(decision);
+      setFireDecision(decision);
+      socket.emit("firedecision", decision);
+    }
+  };
   return (
     <div className="bg-gray-100 p-8">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -101,43 +104,48 @@ export default function EmergencyRequests() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Location</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Severity</TableHead>
-                  <TableHead>Time</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Action</TableHead>
+                  <TableHead>User Name</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Number</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {emergencyRequests.map((request, index) => (
-                  <TableRow key={index}>
+                {userDetail && (
+                  <TableRow>
                     <TableCell className="font-medium">
-                      {request.location}
+                      {userDetail.user.fullName}
                     </TableCell>
-                    <TableCell>{request.type}</TableCell>
+
+                    <TableCell>{userDetail.user.email}</TableCell>
+                    <TableCell>{userDetail.user.phoneNumber}</TableCell>
                     <TableCell>
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${request.severity.color}`}
-                      >
-                        {request.severity.label}
-                      </span>
-                    </TableCell>
-                    <TableCell>{request.time}</TableCell>
-                    <TableCell>
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${request.status.color}`}
-                      >
-                        {request.status.label}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <Button variant={request.action.variant} size="sm">
-                        {request.action.label}
-                      </Button>
+                      <div className="space-x-2">
+                        <>
+                          {decision ? (
+                            <Button variant="default" disable>
+                              {decision}
+                            </Button>
+                          ) : (
+                            <>
+                              <Button
+                                variant="default"
+                                onClick={() => handleFireRequest("Accepted")}
+                              >
+                                Accept
+                              </Button>
+                              <Button
+                                variant="outline"
+                                onClick={() => handleFireRequest("Declined")}
+                              >
+                                Decline
+                              </Button>
+                            </>
+                          )}
+                        </>
+                      </div>
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </div>

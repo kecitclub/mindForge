@@ -25,49 +25,46 @@ const userIcon = new L.Icon({
 })
 
 
-export default function MapPolice() {
+export default function MapFire() {
     const [locations, setLocations] = useState([])
     const [userLocation, setUserLocation] = useState(null)
     const [locationError, setLocationError] = useState(null)
-    const { user } = useUserStore();
-    const { socket, setUserDetailPolice, selectedAmbulance, userDetailPolice } = useSocket();
-    const [fireDecision, setFireDecision] = useState(null);
+    const { user, } = useUserStore();
+    const { ambulanceLocation, selectedAmbulance, setRandomAmbulance, socket , userDetail,fireDecision} = useSocket();
 
     useEffect(() => {
-        if (userDetailPolice) {
-            console.log("User Detail: ", userDetailPolice)
+        const sendLocation = () => {
+
+            if (user && socket) {
+                setUserLocation(user.liveLocation);
+                socket.emit('fireLocation', { user, location: user.liveLocation });
+            }
+        }
+
+        sendLocation();
+        setInterval(sendLocation, 2000);
+    }, [user, socket])
+
+
+    useEffect(() => {
+        if (userDetail) {
             const data = [
-                userDetailPolice.location
+                userDetail.location
             ]
             setLocations(data)
         }
-    }, [userDetailPolice])
-
-    useEffect(() => {
-        if (socket) {
-            socket.on("firedecision", (data) => {
-                console.log("book call from patient: ", data)
-                setFireDecision(data);
-            })
-        }
-    }, [socket])
-
-    useEffect(() => {
-        console.log("dsalkjqwsj: ", user.policeStationLocation)
-        setUserLocation(user.policeStationLocation);
-    }, [user])
-
+    }, [userDetail])
 
     return (
         <MapLocation
-            myLocation={user.policeStationLocation}
+            myLocation={user.liveLocation}
             setMyLocation={setUserLocation}
             locationError={locationError}
             myIcon={userIcon}
             otherIcon={customIcon}
-            otherLocations={fireDecision === "Accepted" ? locations : []}
+            otherLocations={locations}
             bookedLocation={locations[0]}
-            isRoutingEnable={fireDecision === "Accepted" ? true : false}
+            isRoutingEnable={fireDecision=== "Accepted" ? true : false}
         />
     )
 }
