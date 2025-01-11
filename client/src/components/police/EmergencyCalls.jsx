@@ -5,6 +5,7 @@ import { useUserStore } from "@/store/useUserStore"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { toast } from "sonner"
+import { useSocket } from "@/store/useSocket"
 
 const data = [
   {
@@ -41,6 +42,8 @@ const stats = [
 
 const EmergencyCalls = () => {
   const { user, setUser } = useUserStore()
+ 
+const { socket, setUserDetailPolice, userDetailPolice } = useSocket();
   const navigate = useNavigate()
 
   const handleLogout = async () => {
@@ -112,60 +115,31 @@ const EmergencyCalls = () => {
         </div>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {data.map(call => (
-          <Card
-            key={call.id}
-            className={`relative overflow-hidden p-6 shadow-lg ${getCardBackground(
-              call.status
-            )}`}
-          >
-            <div className="mb-4 flex items-center justify-between">
-              <span
-                className={`rounded-full px-3 py-1 text-sm font-medium text-white ${getStatusColor(
-                  call.status
-                )}`}
-              >
-                {call.status}
-              </span>
-              <span className="text-sm text-gray-500">{call.timeAgo}</span>
-            </div>
+      {
+    userDetailPolice && <Card
+      className={"relative overflow-hidden p-6 shadow-lg"}
+    >
+      <div className="mb-4 flex items-center justify-between">
+        <span
+          className={`rounded-full px-3 py-1 text-sm font-medium text-white ${getStatusColor(
+            "ACTIVE"
+          )}}`}
+        >
+          Active
+        </span>
+      </div>
 
-            <div className="mb-6 flex items-start gap-3">
-              <AlertTriangle
-                className={`h-5 w-5 ${
-                  call.status === "ACTIVE"
-                    ? "text-red-500"
-                    : call.status === "PENDING"
-                    ? "text-yellow-500"
-                    : "text-blue-500"
-                }`}
-              />
-              <div>
-                <h3 className="font-semibold text-gray-900">{call.title}</h3>
-                <p className="text-sm text-gray-600">{call.location}</p>
-                <p className="text-sm text-gray-500">{call.address}</p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <Button
-                className={
-                  call.status === "IN PROGRESS"
-                    ? "flex-1 bg-emerald-500 hover:bg-emerald-600"
-                    : "flex-1 bg-blue-500 hover:bg-blue-600"
-                }
-              >
-                {call.status === "IN PROGRESS" ? "View Status" : "Accept"}
-              </Button>
-              <Button
-                variant="outline"
-                className="flex-1 border-gray-200 bg-white hover:bg-gray-50"
-              >
-                Details
-              </Button>
-            </div>
-          </Card>
-        ))}
+      <div className="mb-6 flex items-start gap-3">
+        <AlertTriangle
+          className={'h-5 w-5 text-red-500'}
+        />
+        <div>
+          <h3 className="font-semibold text-gray-900">{userDetailPolice.user.fullName}</h3>
+          <p className="text-sm text-gray-500">{userDetailPolice.user.email}</p>
+        </div>
+      </div>
+    </Card>
+  }
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {stats.map(stat => (

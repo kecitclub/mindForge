@@ -42,8 +42,9 @@ export function Signin() {
       if (response.status === 200) {
         console.log(response.data.user)
         setUser(response.data.user)
-        toast.success(`Welcome ${user.fullName}!`)
-
+        
+        
+        toast.success(`Welcome ${response.data.user.fullName}!`);
         if (response.data.user.role === "Police") {
           navigate("/police/dashboard")
         } else if (response.data.user.role === "NormalUser") {
