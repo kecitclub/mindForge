@@ -1,6 +1,10 @@
-import { AlertTriangle, Bell, LogOut } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { AlertTriangle, Bell, LogOut } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { useUserStore } from "@/store/useUserStore"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import { toast } from "sonner"
 
 const data = [
   {
@@ -27,47 +31,70 @@ const data = [
     address: "Highway 101, Exit 23",
     timeAgo: "15 mins ago",
   },
-];
+]
 
 const stats = [
   { label: "Active Calls", value: 12, color: "text-red-500" },
   { label: "Pending Responses", value: 5, color: "text-yellow-500" },
   { label: "Units Dispatched", value: 8, color: "text-blue-500" },
-];
+]
 
 const EmergencyCalls = () => {
+  const { setUser } = useUserStore()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,
+        {
+          withCredentials: true,
+        }
+      )
+
+      if (response.status === 200) {
+        setUser(null)
+        navigate("/")
+        toast.success("Logged out successfully")
+      }
+    } catch (e) {
+      console.error(e)
+      toast.error("An error occurred. Please try again.")
+    }
+  }
+
   const getStatusColor = () => {
     switch (data.status) {
       case "ACTIVE":
-        return "bg-red-500";
+        return "bg-red-500"
       case "PENDING":
-        return "bg-yellow-500";
+        return "bg-yellow-500"
       case "IN PROGRESS":
-        return "bg-blue-500";
+        return "bg-blue-500"
       default:
-        return "bg-gray-500";
+        return "bg-gray-500"
     }
-  };
+  }
 
   const getCardBackground = () => {
     switch (data.status) {
       case "ACTIVE":
-        return "bg-red-50";
+        return "bg-red-50"
       case "PENDING":
-        return "bg-yellow-50";
+        return "bg-yellow-50"
       case "IN PROGRESS":
-        return "bg-blue-50";
+        return "bg-blue-50"
       default:
-        return "bg-gray-50";
+        return "bg-gray-50"
     }
-  };
+  }
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex justify-between items-center px-8 pt-8 pb-6 bg-slate-200">
         <h1 className="text-2xl font-semibold">Welcome, fullName</h1>
         <div className="flex items-center gap-4">
           <Bell className="h-5 w-5 text-gray-500" />
-          <LogOut className="h-5 w-5 text-gray-500" />
+          <LogOut onClick={handleLogout} className="h-5 w-5 text-gray-500" />
         </div>
       </div>
       <div className="flex items-center justify-between">
@@ -82,7 +109,7 @@ const EmergencyCalls = () => {
         </div>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {data.map((call) => (
+        {data.map(call => (
           <Card
             key={call.id}
             className={`relative overflow-hidden p-6 shadow-lg ${getCardBackground(
@@ -138,7 +165,7 @@ const EmergencyCalls = () => {
         ))}
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {stats.map((stat) => (
+        {stats.map(stat => (
           <Card
             key={stat.label}
             className="flex items-center justify-between p-6"
@@ -151,7 +178,7 @@ const EmergencyCalls = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EmergencyCalls;
+export default EmergencyCalls

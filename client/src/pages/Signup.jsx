@@ -1,45 +1,46 @@
-import { Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Link, useNavigate } from "react-router-dom";
-import sideLogo from "../assets/sidelogo.png";
-import { useState } from "react";
-import axios from "axios";
-import { useUserStore } from "@/store/useUserStore";
-import LocationPicker from "@/components/map/SignUpLocationPicker";
-import { useLocationStore } from "@/store/useLocationStore";
+import { Heart } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Link, useNavigate } from "react-router-dom"
+import sideLogo from "../assets/sidelogo.png"
+import { useState } from "react"
+import axios from "axios"
+import { useUserStore } from "@/store/useUserStore"
+import LocationPicker from "@/components/map/SignUpLocationPicker"
+import { useLocationStore } from "@/store/useLocationStore"
+import { toast } from "sonner"
 
 export function Signup() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const { role } = useUserStore();
-  const { policePosition } = useLocationStore();
+  const { role } = useUserStore()
+  const { policePosition } = useLocationStore()
 
   const [formInputs, setFormInputs] = useState({
     fullName: "",
     email: "",
     password: "",
     phoneNumber: "",
-  });
+  })
 
-  const changeEventHandler = (e) => {
-    setFormInputs({ ...formInputs, [e.target.name]: e.target.value });
-  };
+  const changeEventHandler = e => {
+    setFormInputs({ ...formInputs, [e.target.name]: e.target.value })
+  }
 
-  const formSubmitHandler = async (e) => {
-    e.preventDefault();
+  const formSubmitHandler = async e => {
+    e.preventDefault()
 
     const data = {
       ...formInputs,
       role: role === "User" ? "NormalUser" : role,
       ...policePosition,
-    };
+    }
 
     try {
-      console.log(data);
+      console.log(data)
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/register`,
         data,
@@ -49,15 +50,17 @@ export function Signup() {
           },
           withCredentials: true,
         }
-      );
+      )
 
       if (response.status === 201) {
-        navigate("/signin");
+        navigate("/signin")
+        toast.success("Account created successfully! Proceed to sign in.")
       }
     } catch (e) {
-      console.error(e);
+      console.error(e)
+      toast.error("An error occurred. Please try again.")
     }
-  };
+  }
 
   return (
     <form
@@ -163,5 +166,5 @@ export function Signup() {
       {role === "FireBrigade" && <LocationPicker />}
       {role === "Police" && <LocationPicker />}
     </form>
-  );
+  )
 }

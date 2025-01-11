@@ -1,31 +1,31 @@
-import { Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Link, useNavigate } from "react-router-dom";
-import sideLogo from "../assets/sidelogo.png";
-import { useState } from "react";
-import axios from "axios";
-import { useUserStore } from "@/store/useUserStore";
-import { toast } from "sonner";
+import { Heart } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Link, useNavigate } from "react-router-dom"
+import sideLogo from "../assets/sidelogo.png"
+import { useState } from "react"
+import axios from "axios"
+import { useUserStore } from "@/store/useUserStore"
+import { toast } from "sonner"
 
 export function Signin() {
-  const navigate = useNavigate();
-  const { setUser } = useUserStore();
+  const navigate = useNavigate()
+  const { user, setUser } = useUserStore()
 
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
-  });
+  })
 
-  const changeEventHandler = (e) => {
-    setFormInputs({ ...formInputs, [e.target.name]: e.target.value });
-  };
+  const changeEventHandler = e => {
+    setFormInputs({ ...formInputs, [e.target.name]: e.target.value })
+  }
 
-  const formSubmitHandler = async (e) => {
-    e.preventDefault();
+  const formSubmitHandler = async e => {
+    e.preventDefault()
 
     try {
       const response = await axios.post(
@@ -37,27 +37,28 @@ export function Signin() {
           },
           withCredentials: true,
         }
-      );
+      )
 
       if (response.status === 200) {
-        console.log(response.data.user);
-        setUser(response.data.user);
-        toast.success("Welcome to Emergenix");
+        console.log(response.data.user)
+        setUser(response.data.user)
+        toast.success(`Welcome ${user.fullName}!`)
 
         if (response.data.user.role === "Police") {
-          navigate("/police/dashboard");
+          navigate("/police/dashboard")
         } else if (response.data.user.role === "NormalUser") {
-          navigate("/user/dashboard");
+          navigate("/user/dashboard")
         } else if (response.data.user.role === "Ambulance") {
-          navigate("/ambulance/dashboard");
+          navigate("/ambulance/dashboard")
         } else if (response.data.user.role === "FireBrigade") {
-          navigate("/fire/dashboard");
+          navigate("/fire/dashboard")
         }
       }
     } catch (e) {
-      console.error(e);
+      console.error(e)
+      toast.error("An error occurred. Please try again.")
     }
-  };
+  }
 
   return (
     <form
@@ -134,5 +135,5 @@ export function Signin() {
         </CardContent>
       </Card>
     </form>
-  );
+  )
 }

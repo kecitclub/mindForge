@@ -6,42 +6,69 @@ import {
   ChevronRight,
   Bell,
   LogOut,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { useUserStore } from "@/store/useUserStore";
-import MapAmbulance from "./MapAmbulance";
-import { useEffect, useState } from "react";
-import { useSocket } from "@/store/useSocket";
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { useUserStore } from "@/store/useUserStore"
+import MapAmbulance from "./MapAmbulance"
+import { useEffect, useState } from "react"
+import { useSocket } from "@/store/useSocket"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import { toast } from "sonner"
 
 export default function UserRequest() {
-  const { user } = useUserStore();
-  const [decision, setDecision] = useState("");
-  const { socket, setUserDetail, userDetail } = useSocket();
+  const { user, setUser } = useUserStore()
+  const navigate = useNavigate()
+  const [decision, setDecision] = useState("")
+  const { socket, setUserDetail, userDetail } = useSocket()
 
   useEffect(() => {
     if (socket) {
-      socket.on("bookAmbulance", (data) => {
-        console.log("book call from patient: ", data);
-        setUserDetail(data);
-      });
+      socket.on("bookAmbulance", data => {
+        console.log("book call from patient: ", data)
+        setUserDetail(data)
+      })
     }
-  }, [socket]);
+  }, [socket])
 
-  const handleRequest = (decision) => {
+  const handleRequest = decision => {
     if (socket) {
-      setDecision(decision);
-      socket.emit("decision", decision);
+      setDecision(decision)
+      socket.emit("decision", decision)
     }
-  };
+  }
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,
+        {
+          withCredentials: true,
+        }
+      )
+
+      if (response.status === 200) {
+        setUser(null)
+        navigate("/")
+        toast.success("Logged out successfully")
+      }
+    } catch (e) {
+      console.error(e)
+      toast.error("An error occurred. Please try again.")
+    }
+  }
 
   return (
     <div className="container mx-auto  space-y-6">
       <div className="flex justify-between items-center px-8 pt-8 pb-6 bg-slate-200">
         <h1 className="text-2xl font-semibold">Welcome, {user?.fullName}</h1>
         <div className="flex items-center gap-4">
-          <Bell className="h-5 w-5 text-gray-500" />
-          <LogOut className="h-5 w-5 text-gray-500" />
+          <Bell className="h-5 w-5 text-gray-500 cursor-pointer" />
+          <LogOut
+            onClick={handleLogout}
+            className="h-5 w-5 text-gray-500 cursor-pointer"
+          />
         </div>
       </div>
       <div className="px-24">
@@ -167,5 +194,5 @@ export default function UserRequest() {
         </div>
       </div>
     </div>
-  );
+  )
 }

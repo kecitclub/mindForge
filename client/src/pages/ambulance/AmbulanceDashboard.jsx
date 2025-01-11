@@ -1,5 +1,5 @@
-import Sidebar from "@/components/global/Sidebar";
-import PatientRequest from "@/components/ambulance/UserRequest";
+import Sidebar from "@/components/global/Sidebar"
+import PatientRequest from "@/components/ambulance/UserRequest"
 
 const AmbulanceDashboard = () => {
   return (
@@ -11,7 +11,7 @@ const AmbulanceDashboard = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default AmbulanceDashboard;
+export default AmbulanceDashboard
