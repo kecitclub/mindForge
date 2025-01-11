@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Layers, Maximize2 } from "lucide-react";
+import MapFire from "./MapFire";
 
 // Active units data
 const activeUnits = [
@@ -74,8 +75,8 @@ export default function LiveLocation() {
                   </Button>
                 </div>
               </div>
-              <div className="aspect-[16/9] flex items-center justify-center text-gray-500 bg-gray-50/50">
-                Map View
+              <div className="bg-gray-50 rounded-lg  flex flex-col  justify-start w-full ">
+               <MapFire/>
               </div>
             </Card>
           </div>

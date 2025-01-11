@@ -35,12 +35,30 @@ io.on('connection', (socket) => {
         console.log("Ambulance location: ", data);
         io.emit('ambulanceLocation', data);
     });
+    socket.on('fireLocation', (data) => {
+        console.log("fireLocation location: ", data);
+        io.emit('fireLocation', data);
+    });
 
     socket.on("bookAmbulance", (data) => {
         console.log("Book ambulance data: ", data)
         io.emit("bookAmbulance", data)
+    });
+
+    socket.on("bookFire", (data) => {
+        console.log("Book fire data: ", data)
+        io.emit("bookFire", data)
     })
 
+
+    socket.on("decision", (data) => {
+        console.log("decision: ", data)
+        io.emit("decision", data)
+    })
+    socket.on("firedecision", (data) => {
+        console.log("firedecision: ", data)
+        io.emit("firedecision", data)
+    })
     // Listen for custom events from the client
     socket.on('message', (data) => {
         console.log('Message from client:', data);
