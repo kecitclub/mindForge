@@ -6,7 +6,7 @@ import { Loader2 } from 'lucide-react';
 import { useUserStore } from '@/store/useUserStore';
 
 const customIcon = new L.Icon({
-    iconUrl: 'https://cdn.discordapp.com/attachments/1326815889643016196/1326925082114920520/ambulance.png?ex=678132c8&is=677fe148&hm=7bebce3c15cf812fed64cde46b07255eb0f6dddf39797082603370d8024da838&',
+    iconUrl: 'https://img.freepik.com/premium-vector/free-vector-user-icon-simple-line_901408-588.jpg',
     shadowUrl: 'https://img.freepik.com/premium-photo/abstract-background-design-hd-light-alphabet-red-color_851755-118955.jpg?semt=ais_hybrid',
     iconSize: [24, 24],
     iconAnchor: [12, 41],
@@ -24,14 +24,15 @@ const userIcon = new L.Icon({
 })
 
 
-const MapAmbulance = ({userDetail}) => {
+const MapAmbulance = ({ userData }) => {
     const [locations, setLocations] = useState([])
     const [userLocation, setUserLocation] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [locationError, setLocationError] = useState(null)
-    const { setUserLocationUser, userLocationUser } = useLocationStore();
-    const { socket, selectedAmbulance } = useSocket();
+    const { socket, selectedAmbulance, userDetail } = useSocket();
     const { user } = useUserStore();
+
+    console.log("User Data: ", userData)
 
     useEffect(() => {
         setIsLoading(true)
@@ -61,16 +62,17 @@ const MapAmbulance = ({userDetail}) => {
 
         sendLocation();
         setIsLoading(false)
-        // setInterval(sendLocation, 10000);
+        setInterval(sendLocation, 2000);
     }, [socket, user])
 
     useEffect(() => {
-        if (userLocation) {
-            console.log("User Location2: ", userLocation)
-            // const locations = getAmbulanceLocations(userLocation, 10);
-            // setLocations(locations);
+        if (userDetail) {
+            const data = [
+                userDetail.location
+            ]
+            setLocations(data)
         }
-    }, [userLocation])
+    }, [userDetail])
 
     if (isLoading) {
         return (
@@ -90,7 +92,7 @@ const MapAmbulance = ({userDetail}) => {
             myIcon={userIcon}
             otherIcon={customIcon}
             otherLocations={locations}
-            bookedLocation={selectedAmbulance}
+            bookedLocation={locations[0]}
             isRoutingEnable={true}
         />
     )

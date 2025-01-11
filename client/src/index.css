@@ -80,3 +80,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.leaflet-routing-container {
+  background-color: rgba(255, 255, 255, 0.8); /* Light background with transparency */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.leaflet-routing-alt {
+  background-color: rgba(255, 0, 0, 0.1); /* Light red background for alternatives */
+}
+
+.leaflet-routing-itinerary {
+  background-color: rgba(0, 0, 0, 0.1); /* Light gray background for the itinerary */
+  color: #000; /* Text color */
+  padding: 8px;
+  border-radius: 8px;
+}

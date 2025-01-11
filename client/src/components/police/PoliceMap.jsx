@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MapPolice from "./MapPolice";
+import { useEffect } from "react";
+import { useSocket } from "@/store/useSocket";
 
 const incidents = [
   {
@@ -28,6 +30,17 @@ const incidents = [
 ];
 
 const PoliceMap = () => {
+
+  const { socket, setUserDetailPolice } = useSocket();
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("bookFire", (data) => {
+        console.log("book call from patient: ", data)
+        setUserDetailPolice(data);
+      })
+    }
+  }, [socket])
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center">
@@ -61,8 +74,8 @@ const PoliceMap = () => {
               <TableCell>
                 <span
                   className={`px-3 py-1 rounded-full text-sm ${incident.status === "Critical"
-                      ? "bg-red-100 text-red-700"
-                      : "bg-yellow-100 text-yellow-700"
+                    ? "bg-red-100 text-red-700"
+                    : "bg-yellow-100 text-yellow-700"
                     }`}
                 >
                   {incident.status}

@@ -48,6 +48,8 @@ export function Signin() {
           navigate("/user/dashboard")
         } else if (response.data.user.role === "Ambulance") {
           navigate("/ambulance/dashboard")
+        } else if (response.data.user.role === "FireBrigade") {
+          navigate("/fire/dashboard")
         }
       }
     } catch (e) {
